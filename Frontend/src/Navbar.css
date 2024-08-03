@@ -1,0 +1,45 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem; /* Reduced padding for height */
+  background-color: #333;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px; /* Explicitly set height */
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Include padding in height calculation */
+}
+
+
+.logo {
+  height: 10%; /* Adjust logo height to fit within navbar */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem; /* Adjust spacing */
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links a {
+  color: white; /* Default text color */
+  text-decoration: none;
+  font-size: 0.875rem; /* Adjusted font size */
+  line-height: 50px; /* Align text vertically in the navbar */
+  transition: text-decoration 0.3s ease; /* Smooth transitions for text decoration */
+}
+
+.nav-links a:hover {
+  text-decoration: underline; /* Underline on hover */
+  color: inherit; /* Ensure text color remains unchanged */
+}
