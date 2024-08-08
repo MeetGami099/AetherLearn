@@ -1,3 +1,5 @@
+const { default: mongoose } = require("mongoose");
+
 const classSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -11,11 +13,15 @@ const classSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    teacher: {
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
+    facultys:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    }],
     students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
