@@ -170,10 +170,67 @@ const joinclass = async(req,res)=>{
 
         //await Class.findOneAndUpdate({classCode:classcode},{$push:{students:user._id}})
 
+        user.joinclass.push(classdetail._id)
+        await user.save()
+
+        return res.status(200).json({
+            success:true,
+            message:"class joined successfully",
+        })
 
     } catch (e) {
         console.log("Error in joinclass controller",e)
     }
 }
 
-module.exports = { createClass , editclass , getclass }
+const leaveclass = async (req,res)=>{
+    try {
+        const user = req.user;
+
+        const {classId} = req.body
+
+        const classData = await Class.findOne({_id:classId})
+
+        if(!classData){
+            return res.status(404).json({
+                success:false,
+                message:"class not found"
+                })
+        }
+
+        if (classData.creator.toString() === user._id) {
+            // If creator is leaving, delete the class
+            await Class.findByIdAndDelete(classId);
+
+            // Remove class reference from all students
+            await User.updateMany(
+                { joinedclass: classId },
+                { $pull: { joinedclass: classId } }
+            );
+
+            // Remove related posts
+            await Post.deleteMany({ class: classId });
+
+            return res.status(200).json({ message: 'Class and related data deleted successfully' });
+        } else {
+            // If a student is leaving, remove them from the class
+            await Class.findByIdAndUpdate(
+                classId,
+                { $pull: { students: user._id } }
+            );
+
+            // Remove class from student's joined classes
+            await User.findByIdAndUpdate(
+                user._id,
+                { $pull: { joinedclass: classId } }
+            );
+
+            return res.status(200).json({ message: 'Left class successfully' });
+        }
+
+    } catch (e) {
+        console.log("error in leave class controller",e)
+    }
+}
+
+module.exports = { createClass , editclass , getclass , joinclass , leaveclass }

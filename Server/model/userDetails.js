@@ -39,7 +39,13 @@ const userLoginSchema = mongoose.Schema({
     joinedAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    joinedclass:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Class',
+        default: null,
+        unique:true
+    }]
 });
 
 module.exports = mongoose.model('User', userLoginSchema);
