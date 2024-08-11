@@ -1,18 +1,19 @@
 const express = require('express')
 const router = express.Router()
+const { isLoggedin , isStudent , isFaculty ,isAdmin} = require('../middleware/AuthMiddleware')
 
 const {editclass,createClass, getclass, joinclass, leaveclass} = require('../controller/ClassController')
 // for teachers only do this thing
-router.post('/createclass',createClass)
-router.put('/editclass',editclass)
+router.post('/createclass',isLoggedin,isFaculty || isAdmin , createClass)
+router.put('/editclass',isLoggedin,isFaculty || isAdmin ,editclass)
 
 // it is for teacher and student both
-router.get('/getclass',getclass)
+router.get('/getclass',isLoggedin,getclass)
 
 // for student join
-router.post('/joinclass',joinclass)
+router.post('/joinclass',isLoggedin,joinclass)
 
 //for leave class
-router.post('/leaveclass',leaveclass)
+router.post('/leaveclass',isLoggedin,leaveclass)
 
 module.exports = router
