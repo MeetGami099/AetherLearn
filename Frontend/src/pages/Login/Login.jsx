@@ -87,6 +87,8 @@ export default function Login() {
         <img src={logo} alt="Company Logo" />
       </div>
 
+      <div className={styles.divider}></div>
+
       {/* Form Side */}
       <div className={styles.formSide}>
         <div className={styles.maxWidth}>
