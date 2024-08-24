@@ -35,12 +35,12 @@ exports.isLoggedin = async (req, res, next) => {
   }
 };
 
-exports.isUser = async (req, res) => {
+exports.isStudent = async (req, res) => {
   try {
-    if (req.user.role !== "user") {
+    if (req.user.role !== "student") {
       return res.send({
         success: false,
-        msg: "You are not User",
+        msg: "You are not student",
       });
     }
 
@@ -48,7 +48,25 @@ exports.isUser = async (req, res) => {
   } catch (error) {
     return res.json({
       success: false,
-      msg: "error while Verifying User",
+      msg: "error while Verifying student",
+    });
+  }
+};
+
+exports.isFaculty = async (req, res) => {
+  try {
+    if (req.user.role !== "faculty") {
+      return res.send({
+        success: false,
+        msg: "You are not faculty",
+      });
+    }
+
+    next();
+  } catch (error) {
+    return res.json({
+      success: false,
+      msg: "error while Verifying faculty",
     });
   }
 };
