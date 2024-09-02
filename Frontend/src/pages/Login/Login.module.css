@@ -1,4 +1,3 @@
-/* login.module.css */
 
 .container {
     display: flex;
@@ -20,7 +19,7 @@
   
   .divider {
     width: 1px;
-    background-color: #ccc; /* You can change the color */
+    background-color: #ccc; 
   }
 
   .formSide {
@@ -110,14 +109,68 @@
     color: #ffffff;
     text-align: right;
     cursor: pointer;
-    text-decoration: none; /* Ensure no underline by default */
+    text-decoration: none; 
   }
   
   .link:hover {
-    text-decoration: underline; /* Remove underline on hover */
+    text-decoration: underline;
   }
   
   .button.fullWidth {
     width: 100%;
   }
+
+  .radioLabel {
+    display: flex;
+    align-items: center;
+    margin-bottom: -8px;
+    color: #ccc;
+  }
+  .radioInput {
+    -webkit-appearance: none;
+    /* Remove default styling */
+    display: inline-block;
+    margin: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: hsla(0, 0%, 100%, 0.15) 0 1px 1px, inset hsla(0, 0%, 0%, 0.5) 0 0 0 1px;
+    background-color: hsla(0, 0%, 0%, 0.2);
+    background-image: -webkit-radial-gradient(
+      hsla(200, 100%, 90%, 1) 0%,
+      hsla(200, 100%, 70%, 1) 15%,
+      hsla(200, 100%, 60%, 0.3) 28%,
+      hsla(200, 100%, 30%, 0) 70%
+    );
+    background-repeat: no-repeat;
+    -webkit-transition: background-position 0.15s cubic-bezier(0.8, 0, 1, 1),
+      -webkit-transform 0.25s cubic-bezier(0.8, 0, 1, 1);
+    outline: none;
+  }
   
+  .radioInput:checked {
+    -webkit-transition: background-position 0.2s 0.15s cubic-bezier(0, 0, 0.2, 1),
+      -webkit-transform 0.25s cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .radioInput:active {
+    -webkit-transform: scale(1.5);
+    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  /* Direction logic for the custom radio input */
+  .radioInput,
+  .radioInput:active {
+    background-position: 0 24px;
+  }
+  
+  .radioInput:checked {
+    background-position: 0 0;
+  }
+  
+  .radioInput:checked ~ .radioInput,
+  .radioInput:checked ~ .radioInput:active {
+    background-position: 0 -24px;
+  }

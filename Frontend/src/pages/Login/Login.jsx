@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
-import logo from '../../assets/aetherlearn-high-resolution-logo-white-transparent.png'
-
+import logo from '../../assets/aetherlearn-high-resolution-logo-white-transparent.png';
 
 const Button = ({ children, onClick, type, className, variant }) => (
   <button
@@ -40,21 +39,19 @@ function ForgotPasswordForm({ onBackToSignIn }) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className={styles.formGroup}>
       <h2 className={styles.heading}>Forgot Password</h2>
       <form onSubmit={handleResetPassword} className={styles.form}>
-        <div className={styles.formGroup}>
-          <Label htmlFor="reset-email">Email</Label>
-          <Input
-            id="reset-email"
-            type="email"
-            placeholder="Enter your email"
-            value={resetEmail}
-            onChange={(e) => setResetEmail(e.target.value)}
-            required
-          />
-        </div>
-        <Button type="submit" className={styles.button + ' ' + styles.fullWidth}>Reset Password</Button>
+        <Label htmlFor="reset-email">Email</Label>
+        <Input
+          id="reset-email"
+          type="email"
+          placeholder="Enter your email"
+          value={resetEmail}
+          onChange={(e) => setResetEmail(e.target.value)}
+          required
+        />
+        <Button type="submit" className={styles.fullWidth}>Reset Password</Button>
       </form>
       <div className={styles.link} onClick={onBackToSignIn}>
         Back to Sign In
@@ -67,6 +64,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [role, setRole] = useState('student');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('signin');
 
@@ -77,7 +75,7 @@ export default function Login() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log('Sign up:', name, email, password);
+    console.log('Sign up:', name, email, password, role);
   };
 
   return (
@@ -138,7 +136,7 @@ export default function Login() {
                   <div className={styles.link} onClick={() => setShowForgotPassword(true)}>
                     Forgot Password?
                   </div>
-                  <Button type="submit" className={styles.button + ' ' + styles.fullWidth}>Sign In</Button>
+                  <Button type="submit" className={styles.fullWidth}>Sign In</Button>
                 </form>
               ) : (
                 <form onSubmit={handleSignUp} className={styles.form}>
@@ -175,7 +173,34 @@ export default function Login() {
                       required
                     />
                   </div>
-                  <Button type="submit" className={styles.button + ' ' + styles.fullWidth}>Sign Up</Button>
+                  <div className={styles.formGroup}>
+                    <Label>Role</Label>
+                    <div className={styles.radioGroup}>
+                      <label className={styles.radioLabel}>
+                        <input
+                          type="radio"
+                          name="role"
+                          value="student"
+                          checked={role === 'student'}
+                          onChange={() => setRole('student')}
+                          className={styles.radioInput}
+                        />
+                        <span>Student</span>
+                      </label>
+                      <label className={styles.radioLabel}>
+                        <input
+                          type="radio"
+                          name="role"
+                          value="teacher"
+                          checked={role === 'teacher'}
+                          onChange={() => setRole('teacher')}
+                          className={styles.radioInput}
+                        />
+                        <span>Teacher</span>
+                      </label>
+                    </div>
+                  </div>
+                  <Button type="submit" className={styles.fullWidth}>Sign Up</Button>
                 </form>
               )}
             </>
