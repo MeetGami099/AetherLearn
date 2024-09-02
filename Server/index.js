@@ -40,3 +40,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
 	console.log(`App is running at ${PORT}`);
   });
+
+const classroutes = require('./routes/Class.route')
+
+app.use('/class',classroutes)

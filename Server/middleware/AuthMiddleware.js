@@ -53,16 +53,17 @@ exports.isStudent = async (req, res) => {
   }
 };
 
-exports.isFaculty = async (req, res) => {
+exports.isFaculty = async (req, res,next) => {
   try {
+    
+
     if (req.user.role !== "faculty") {
       return res.send({
         success: false,
         msg: "You are not faculty",
       });
     }
-
-    next();
+    next()
   } catch (error) {
     return res.json({
       success: false,

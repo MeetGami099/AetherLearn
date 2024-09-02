@@ -23,7 +23,7 @@ async function generateUniqueClassCode(length = 6) {
             isUnique = true; 
         }
     }
-
+    
     return classCode;
 }
 
@@ -47,8 +47,8 @@ const createClass = async (req, res) => {
             })
         }
 
-        const classCode = generateUniqueClassCode()
-
+        const classCode = await generateUniqueClassCode()
+        
         const newclass =await Class.create({
             name,
             description,
@@ -80,7 +80,7 @@ const createClass = async (req, res) => {
 const editclass = async (req,res) => {
     try {
         const user = req.user;
-        const classid = req.body || req.query 
+        const {classid} = req.body  // || req.query after complete frontend uncomment this portion
         const userclass = await Class.findById(classid)
 
         if(!userclass)
@@ -91,8 +91,10 @@ const editclass = async (req,res) => {
             })
         }
 
+        const {_id} = user
+        const {creator} = userclass
 
-        if(user._id != userclass.creator){  // here maybe error can accured for tostring in id
+        if(_id.toString() !== creator.toString()){  
             return res.status(300).json({
                 success:false,
                 message:"you are not valid author to change anything"
@@ -108,6 +110,10 @@ const editclass = async (req,res) => {
         userclass.subject=subject
         await userclass.save({validateBeforeSave:false})
 
+        return res.status(200).json({
+            success:true,
+            message:"updated successfully"
+        })
 
     } catch (e) {
         console.log("error in editclass controller:",e)
@@ -116,8 +122,9 @@ const editclass = async (req,res) => {
 
 const getclass = async(req,res)=>{
     try {
-        const classid = req.query
-
+        // const classid = req.query || req.body.classid
+        // console.log("dsv",classid)
+        const {classid} = req.body // while frontend ready please comment this line otherwise write req.query inplace of req.body
         if(!classid){
             return res.status(404).json({
                 success:false,message:"class id not get from req"
@@ -138,7 +145,7 @@ const getclass = async(req,res)=>{
             classdetail
         })
 
-    } catch (error) {
+    } catch (e) {
         console.log("error in getclass detail controller",e)
     }
 }

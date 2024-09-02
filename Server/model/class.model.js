@@ -7,7 +7,7 @@ const classSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        default: none
+        default: null
     },
     subject: {
         type: String,
