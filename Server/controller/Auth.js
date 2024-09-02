@@ -62,6 +62,7 @@ const signUp = async (req, res) => {
     email,
     password: hasedPassword,
     role: accountType,
+    joinedclass:[]
   });
 
   return res.json({

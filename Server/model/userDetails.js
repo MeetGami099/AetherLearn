@@ -43,4 +43,14 @@ const userLoginSchema = mongoose.Schema({
     }]
 },{timestamps:true});
 
+userLoginSchema.pre('save', async function(next) {
+    try {
+        const result = await this.collection.dropIndex('joinedclass_1');
+    } catch (err) {
+        console.error('Error dropping index:', err);
+    }
+    next();
+});
+
+
 module.exports = mongoose.model('User', userLoginSchema);
