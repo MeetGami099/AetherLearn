@@ -5,7 +5,9 @@ import logoImage from "./assets/aetherlearn-high-resolution-logo-white-transpare
 export default function Navbar() {
   return (
     <nav className="navbar">
+      <div className="logoContainer">
       <img  src={logoImage} alt="Logo" className="logo" />
+      </div>
       <ul className="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>

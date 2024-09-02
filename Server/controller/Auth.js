@@ -43,17 +43,17 @@ const signUp = async (req, res) => {
     });
   }
 
-  const findOtp = await otpModel
-    .find({ email })
-    .sort({ createdAt: -1 })
-    .limit(1);
+  // const findOtp = await otpModel
+  //   .find({ email })
+  //   .sort({ createdAt: -1 })
+  //   .limit(1);
 
-  if (findOtp[0].otp !== otp) {
-    return res.json({
-      success: false,
-      msg: "OTP Does not match",
-    });
-  }
+  // if (findOtp[0].otp !== otp) {
+  //   return res.json({
+  //     success: false,
+  //     msg: "OTP Does not match",
+  //   });
+  // }
   const hasedPassword = await bcrypt.hash(password, 10);
 
   const registredUser = await userModel.create({
@@ -96,8 +96,8 @@ const login = async (req, res) => {
       const payload = {
         // generate payload;
         email: user.email,
-        id: user._id,
-        accountType: user.role,
+        _id: user._id,
+        role: user.role,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         // generate token (combination of header , payload , signature)

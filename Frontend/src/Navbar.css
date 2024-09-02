@@ -12,12 +12,23 @@
   height: 70px; /* Explicitly set height */
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Include padding in height calculation */
+  box-sizing: border-box;
+  overflow: hidden; /* Include padding in height calculation */
 }
 
+.logoContainer{
+  width: auto;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.logo {
-  height: 10%; /* Adjust logo height to fit within navbar */
+}
+
+.logoContainer img {
+  height: 80%; /* Adjust logo height to fit within navbar */
   width: auto; /* Maintain aspect ratio */
 }
 

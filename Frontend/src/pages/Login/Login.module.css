@@ -1,0 +1,123 @@
+/* login.module.css */
+
+.container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .logoSide {
+    display: none;
+    width: 50%;
+    background-color: transparent;
+  }
+  
+  .logoSide img {
+    max-width: 100%;
+    transform: scale(0.7);
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .divider {
+    width: 1px;
+    background-color: #ccc; /* You can change the color */
+  }
+
+  .formSide {
+    width: 100%;
+    background-color: transparent;
+    padding: 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .logoSide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .formSide {
+      width: 50%;
+    }
+  }
+  
+  .maxWidth {
+    max-width: 28rem;
+    margin: 0 auto;
+  }
+  
+  .heading {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .tabButtons {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .tabButton {
+    flex: 1;
+    padding: 0.5rem 0;
+    border-radius: 0.375rem;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .tabButton.active {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  
+  .tabButton.inactive {
+    border: 1px solid black;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .label {
+    font-weight: 500;
+  }
+  
+  .input {
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+  }
+  
+  .button {
+    padding: 0.75rem;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .link {
+    color: #ffffff;
+    text-align: right;
+    cursor: pointer;
+    text-decoration: none; /* Ensure no underline by default */
+  }
+  
+  .link:hover {
+    text-decoration: underline; /* Remove underline on hover */
+  }
+  
+  .button.fullWidth {
+    width: 100%;
+  }
+  

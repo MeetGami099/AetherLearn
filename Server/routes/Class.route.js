@@ -5,7 +5,7 @@ const { isLoggedin , isStudent , isFaculty ,isAdmin} = require('../middleware/Au
 const {editclass,createClass, getclass, joinclass, leaveclass} = require('../controller/ClassController')
 // for teachers only do this thing
 router.post('/createclass',isLoggedin,isFaculty || isAdmin , createClass)
-router.put('/editclass',isLoggedin,isFaculty || isAdmin ,editclass)
+router.post('/editclass',isLoggedin,isFaculty || isAdmin ,editclass)
 
 // it is for teacher and student both
 router.get('/getclass',isLoggedin,getclass)
