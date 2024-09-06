@@ -13,7 +13,7 @@ router.get('/getclass',isLoggedin,getclass)
 // for student join
 router.post('/joinclass',isLoggedin,joinclass)
 
-//for leave class
+//leave class for student and faculty who created class 
 router.post('/leaveclass',isLoggedin,leaveclass)
 
 module.exports = router

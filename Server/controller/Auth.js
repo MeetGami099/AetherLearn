@@ -64,6 +64,7 @@ const signUp = async (req, res) => {
     role: accountType,
   });
 
+
   return res.json({
     success: true,
     msg: "User Registred",
