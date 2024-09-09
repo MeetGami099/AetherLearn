@@ -3,6 +3,8 @@
 
 #Server node_module
 ./Server/node_module
-
+./Server/TestServer
 node_modules
 .env
+./TestServer
+TestServer

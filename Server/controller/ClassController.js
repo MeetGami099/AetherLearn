@@ -218,7 +218,6 @@ const leaveclass = async (req,res)=>{
 
             // Remove related posts
             await Post.deleteMany({ class: classId });
-
             return res.status(200).json({ message: 'Class and related data deleted successfully' });
         } else {
             // If a student is leaving, remove them from the class

@@ -127,5 +127,4 @@ const readposts = async(req,res)=>{
     }
 }
 
-
 module.exports = { createpost , editpost , readposts , deletepost }

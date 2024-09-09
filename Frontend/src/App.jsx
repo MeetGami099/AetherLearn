@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Home from "./pages/Home/Home"
-import LoadingSpinner from "./Spinner"; // Ensure this path is correct
 import Navbar from "./Navbar";
-import "./App.css";
+import Home from "./Pages/Home/Home"
+import LoadingSpinner from "./Spinner"; 
+import Login from "./Pages/Login/Login"
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./pages/Login/Login";
+import "./App.css";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true); // Set to true to see the spinner
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const renderUser = () => {
