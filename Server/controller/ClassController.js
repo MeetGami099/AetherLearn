@@ -1,5 +1,6 @@
 const User = require('../model/userDetails')
 const Class = require('../model/class.model')
+const Post = require('../model/Post.model')
 
 function generateRandomCode(length = 6) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -205,7 +206,7 @@ const leaveclass = async (req,res)=>{
                 })
         }
 
-        if (classData.creator.toString() === user._id) {
+        if (classData.creator.toString() === user._id.toString()) {
             // If creator is leaving, delete the class
             await Class.findByIdAndDelete(classId);
 

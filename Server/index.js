@@ -44,3 +44,7 @@ app.listen(PORT, () => {
 const classroutes = require('./routes/Class.route')
 
 app.use('/class',classroutes)
+
+const postroutes = require('./routes/Post.route')
+
+app.use('/class/post',postroutes)

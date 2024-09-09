@@ -65,6 +65,7 @@ const signUp = async (req, res) => {
     joinedclass:[]
   });
 
+
   return res.json({
     success: true,
     msg: "User Registred",

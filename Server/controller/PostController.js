@@ -14,14 +14,14 @@ const createpost = async(req,res)=>{
             })
         }
 
-        const { content , classId } = req.body
+        const { content , classid } = req.body // here write req.query for classid after complete frontend
 
         const attachments = req.body?.attachments
         const links = req.body?.links
 
         const newpost = await Post.create({
             content,
-            class:classId,
+            class:classid,
             author:user._id,
             attachments,
             links
@@ -113,9 +113,9 @@ const editpost = async(req,res)=>{
 
 const readposts = async(req,res)=>{
     try {
-        const { classId } = req.body
-        const posts = await Post.find({ classId: classId }).populate('userId','firstname')
-
+        const { classid } = req.body
+        const posts = await Post.find({ class: classid })
+        console.log("here is",posts)
         return res.status(200).json({
             success: true,
             message:"Posts Found Successfully",
