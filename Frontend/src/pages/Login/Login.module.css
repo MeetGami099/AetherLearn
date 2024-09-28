@@ -1,176 +1,156 @@
-
 .container {
+    height: 100vh;
+    width: 100vw;
     display: flex;
-    width: 100%;
-  }
-  
-  .logoSide {
-    display: none;
-    width: 50%;
-    background-color: transparent;
-  }
-  
-  .logoSide img {
-    max-width: 100%;
-    transform: scale(0.7);
-    height: auto;
-    object-fit: contain;
-  }
-  
-  .divider {
-    width: 1px;
-    background-color: #ccc; 
-  }
+}
 
-  .formSide {
-    width: 100%;
-    background-color: transparent;
-    padding: 2rem;
-  }
-  
-  @media (min-width: 1024px) {
-    .logoSide {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  
-    .formSide {
-      width: 50%;
-    }
-  }
-  
-  .maxWidth {
-    max-width: 28rem;
-    margin: 0 auto;
-  }
-  
-  .heading {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .tabButtons {
-    display: flex;
-    margin-bottom: 1rem;
-  }
-  
-  .tabButton {
-    flex: 1;
-    padding: 0.5rem 0;
-    border-radius: 0.375rem;
-    text-align: center;
-    cursor: pointer;
-  }
-  
-  .tabButton.active {
-    background-color: #000000;
-    color: #ffffff;
-  }
-  
-  .tabButton.inactive {
-    border: 1px solid black;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: left;
-  }
-  
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .label {
-    font-weight: 500;
-  }
-  
-  .input {
-    padding: 0.5rem;
-    border: 1px solid transparent;
-    border-radius: 0.375rem;
-  }
-  
-  .button {
-    padding: 0.75rem;
-    background-color: #000000;
-    color: #ffffff;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .link {
-    color: #ffffff;
-    text-align: right;
-    cursor: pointer;
-    text-decoration: none; 
-  }
-  
-  .link:hover {
-    text-decoration: underline;
-  }
-  
-  .button.fullWidth {
-    width: 100%;
-  }
-
-  .radioLabel {
+.formContainer {
+    width: 60%;
+    height: 100%;
     display: flex;
     align-items: center;
-    margin-bottom: -8px;
-    color: #ccc;
-  }
-  .radioInput {
-    -webkit-appearance: none;
-    /* Remove default styling */
-    display: inline-block;
-    margin: 10px;
-    width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    vertical-align: middle;
-    box-shadow: hsla(0, 0%, 100%, 0.15) 0 1px 1px, inset hsla(0, 0%, 0%, 0.5) 0 0 0 1px;
-    background-color: hsla(0, 0%, 0%, 0.2);
-    background-image: -webkit-radial-gradient(
-      hsla(200, 100%, 90%, 1) 0%,
-      hsla(200, 100%, 70%, 1) 15%,
-      hsla(200, 100%, 60%, 0.3) 28%,
-      hsla(200, 100%, 30%, 0) 70%
-    );
-    background-repeat: no-repeat;
-    -webkit-transition: background-position 0.15s cubic-bezier(0.8, 0, 1, 1),
-      -webkit-transform 0.25s cubic-bezier(0.8, 0, 1, 1);
+    justify-content: center;
+}
+
+.logoContainer {
+    width: 40%;
+    height: 100%;
+    position: relative;
+    border-left: 1px solid gray;
+
+}
+
+.logoBox {
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    top: 50%;
+    left: -23px;
+    transform: translateY(-50%);
+    background-color: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden;
+}
+
+.logoBox img {
+    height: auto;
+    width: 280px;
+}
+
+.form {
+    width: 38%;
+    /* height: 80%; */
+    height: fit-content;
+    max-width: 500px;
+}
+
+.accoutBtnContainer {
+    width: 100%;
+    height: 10%;
+    margin: 20px 0;
+}
+
+.btnBox {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #cfcdcd;
+    border-radius: 150px;
+    padding: 7px;
+
+}
+
+.btnBox button {
+    width: 48%;
+    padding: 8px;
+    border-radius: 150px;
     outline: none;
-  }
-  
-  .radioInput:checked {
-    -webkit-transition: background-position 0.2s 0.15s cubic-bezier(0, 0, 0.2, 1),
-      -webkit-transform 0.25s cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .radioInput:active {
-    -webkit-transform: scale(1.5);
-    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  /* Direction logic for the custom radio input */
-  .radioInput,
-  .radioInput:active {
-    background-position: 0 24px;
-  }
-  
-  .radioInput:checked {
-    background-position: 0 0;
-  }
-  
-  .radioInput:checked ~ .radioInput,
-  .radioInput:checked ~ .radioInput:active {
-    background-position: 0 -24px;
-  }
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#actaviBtn {
+    background-color: #111111;
+    color: #ffffff;
+}
+
+.fieldContainer {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.fieldContainer p {
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size: medium;
+}
+
+.fieldContainer input {
+    outline: none;
+    border: 1px solid #cfcdcd;
+    /* background-color: #f0f0f0; */
+    border-radius: 3px;
+    padding: 6px;
+    width: 100%;
+}
+
+.fieldContainer input:focus {
+    border: 1px solid black;
+}
+
+.btnContainer {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.btnContainer button {
+    width: 100%;
+    padding: 8px;
+    background-color: #111111;
+    border: none;
+    outline: none;
+    color: #f0f0f0;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+.otpContainer {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.otpContainer p {
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: medium;
+}
+
+.otpFields {
+    display: flex;
+    justify-content: space-between;
+}
+
+.otpFields input {
+    outline: none;
+    border: 1px solid #cfcdcd;
+    border-radius: 3px;
+    padding: 10px;
+    width: 50px; /* Adjust width as needed */
+    text-align: center;
+    font-size: large;
+}
+
+.otpFields input:focus {
+    border: 1px solid black;
+}

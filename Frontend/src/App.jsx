@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-import Navbar from "./Navbar";
-import Home from "./Pages/Home/Home"
-import LoadingSpinner from "./Spinner"; 
+import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login/Login"
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import "./App.css";
+import Signup from "./Pages/Signup/Signup";
+import VerifyOtp from "./Pages/OTP/VerifyOtp";
+import OpenRoute from "./Components/OpenRoute"
+import PrivateRoute from "./Components/PrivateRoute";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const renderUser = () => {
-    return <div>User Content</div>;
-  };
-
   return (
     <div className="App">
-      <Navbar />
-      <Login />
-      {/* 
-      {isLoading ? <LoadingSpinner /> : renderUser()}
-      {errorMessage && <div className="error">{errorMessage}</div>} */}
-      
+      <Routes>
+        <Route path="/login" element={<OpenRoute><Login /></OpenRoute>} />  
+        <Route path="/signup" element={<OpenRoute><Signup /></OpenRoute>} />
+        <Route path="/verify" element={<OpenRoute><VerifyOtp /></OpenRoute>} />
+
+        <Route path="/student" element={<PrivateRoute>Hey Student</PrivateRoute>} />
+      </Routes>
     </div>
   );
 }
