@@ -18,6 +18,7 @@ const signUp = async (req, res) => {
     confirmPassword,
     otp,
   } = req.body;
+  console.log(req.body)
 
   if (
     !accountType ||

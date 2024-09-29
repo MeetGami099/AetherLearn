@@ -163,31 +163,41 @@ const joinclass = async(req,res)=>{
             })
         }
 
-        const classcode = req.body
+        const {classCode} = req.body
 
-        if(!classcode){
+        if(!classCode){
             return res.status(404).json({
                 success:flase,
                 message:"Classcode not found"
             })
         }
 
-        const classdetail = await Class.findOne({classCode:classcode})
-        classdetail.students.push(user._id)
-        await classdetail.save()
+            const classRoom = await Class.findOne({classCode:classCode});
 
-        //await Class.findOneAndUpdate({classCode:classcode},{$push:{students:user._id}})
+            if(classRoom.students.includes(user._id)){
+                throw new Error("Alredy Joined")
+            }
 
-        user.joinclass.push(classdetail._id)
-        await user.save()
+            classRoom.students.push(user._id);
+            await classRoom.save();
+        
+
+        // await Class.findOneAndUpdate({classCode:classCode},{$push:{students:user._id}},{ new: true })
+        const temUser = await User.findOneAndUpdate({_id:user._id},{$push:{joinedclass:classRoom._id}},{new:true})
 
         return res.status(200).json({
             success:true,
             message:"class joined successfully",
+            classRoom,
+            temUser
         })
 
     } catch (e) {
-        console.log("Error in joinclass controller",e)
+        console.log(e)
+        return res.status(200).json({
+            success:false,
+            message:e.message,
+        })
     }
 }
 

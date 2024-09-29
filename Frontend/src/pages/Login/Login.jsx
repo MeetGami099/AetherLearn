@@ -1,212 +1,102 @@
 import React, { useState } from 'react';
-import styles from './Login.module.css';
-import logo from '../../assets/aetherlearn-high-resolution-logo-white-transparent.png';
+import s from "./Login.module.css";
+import Logo from "../../assets/aetherlearn-high-resolution-logo-black-transparent.png";
+import { Link } from 'react-router-dom';import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import {login} from '../../services/operation/authApi'
 
-const Button = ({ children, onClick, type, className, variant }) => (
-  <button
-    onClick={onClick}
-    type={type || 'button'}
-    className={`${styles.button} ${variant === 'link' ? styles.link : ''} ${className}`}
-  >
-    {children}
-  </button>
-);
+const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
-const Input = ({ id, type, placeholder, value, onChange, required }) => (
-  <input
-    id={id}
-    type={type}
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    required={required}
-    className={styles.input}
-  />
-);
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
 
-const Label = ({ htmlFor, children }) => (
-  <label htmlFor={htmlFor} className={styles.label}>
-    {children}
-  </label>
-);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    validateField(name, value);
+  };
 
-function ForgotPasswordForm({ onBackToSignIn }) {
-  const [resetEmail, setResetEmail] = useState('');
+  const validateField = (name, value) => {
+    let errorMessage = '';
 
-  const handleResetPassword = (e) => {
+    if (name === 'email') {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!value) {
+        errorMessage = 'Email is required.';
+      } else if (!emailPattern.test(value)) {
+        errorMessage = 'Please enter a valid email address.';
+      }
+    } else if (name === 'password') {
+      if (!value) {
+        errorMessage = 'Password is required.';
+      } else if (value.length < 6) {
+        errorMessage = 'Password must be at least 6 characters long.';
+      }
+    }
+
+    setErrors({ ...errors, [name]: errorMessage });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Reset password for:', resetEmail);
+    if (!errors.email && !errors.password){
+      const { email, password } = formData
+      dispatch(login(email, password, navigate))
+      console.log('Form submitted:', formData);
+    }
   };
 
   return (
-    <div className={styles.formGroup}>
-      <h2 className={styles.heading}>Forgot Password</h2>
-      <form onSubmit={handleResetPassword} className={styles.form}>
-        <Label htmlFor="reset-email">Email</Label>
-        <Input
-          id="reset-email"
-          type="email"
-          placeholder="Enter your email"
-          value={resetEmail}
-          onChange={(e) => setResetEmail(e.target.value)}
-          required
-        />
-        <Button type="submit" className={styles.fullWidth}>Reset Password</Button>
-      </form>
-      <div className={styles.link} onClick={onBackToSignIn}>
-        Back to Sign In
+    <div className={s.container}>
+      <div className={s.formContainer}>
+        <form className={s.form} onSubmit={handleSubmit}>
+          <h1>Sign in</h1>
+          <p>You don't have an account? <Link to="/signup" className='linkFix'>Sign Up</Link></p>
+            
+          <div className={s.fieldContainer}>
+            <p>Email :</p>
+            <input
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
+
+          <div className={s.fieldContainer}>
+            <p>Password :</p>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            {errors.password && <span className="error">{errors.password}</span>}
+          </div>
+
+          <div className={s.btnContainer}>
+            <button type="submit">Sign in</button>
+          </div>
+        </form>
       </div>
-    </div>
-  );
-}
-
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [role, setRole] = useState('student');
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [activeTab, setActiveTab] = useState('signin');
-
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    console.log('Sign in:', email, password);
-  };
-
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    console.log('Sign up:', name, email, password, role);
-  };
-
-  return (
-    <div className={styles.container}>
-      {/* Logo Side */}
-      <div className={styles.logoSide}>
-        <img src={logo} alt="Company Logo" />
-      </div>
-
-      <div className={styles.divider}></div>
-
-      {/* Form Side */}
-      <div className={styles.formSide}>
-        <div className={styles.maxWidth}>
-          {showForgotPassword ? (
-            <ForgotPasswordForm onBackToSignIn={() => setShowForgotPassword(false)} />
-          ) : (
-            <>
-              <h1 className={styles.heading}>Welcome</h1>
-              <div className={styles.tabButtons}>
-                <div
-                  className={`${styles.tabButton} ${activeTab === 'signin' ? styles.active : styles.inactive}`}
-                  onClick={() => setActiveTab('signin')}
-                >
-                  Sign In
-                </div>
-                <div
-                  className={`${styles.tabButton} ${activeTab === 'signup' ? styles.active : styles.inactive}`}
-                  onClick={() => setActiveTab('signup')}
-                >
-                  Sign Up
-                </div>
-              </div>
-              {activeTab === 'signin' ? (
-                <form onSubmit={handleSignIn} className={styles.form}>
-                  <div className={styles.formGroup}>
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className={styles.formGroup}>
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className={styles.link} onClick={() => setShowForgotPassword(true)}>
-                    Forgot Password?
-                  </div>
-                  <Button type="submit" className={styles.fullWidth}>Sign In</Button>
-                </form>
-              ) : (
-                <form onSubmit={handleSignUp} className={styles.form}>
-                  <div className={styles.formGroup}>
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      type="text"
-                      placeholder="Enter your name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className={styles.formGroup}>
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className={styles.formGroup}>
-                    <Label htmlFor="signup-password">Password</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      placeholder="Create a password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className={styles.formGroup}>
-                    <Label>Role</Label>
-                    <div className={styles.radioGroup}>
-                      <label className={styles.radioLabel}>
-                        <input
-                          type="radio"
-                          name="role"
-                          value="student"
-                          checked={role === 'student'}
-                          onChange={() => setRole('student')}
-                          className={styles.radioInput}
-                        />
-                        <span>Student</span>
-                      </label>
-                      <label className={styles.radioLabel}>
-                        <input
-                          type="radio"
-                          name="role"
-                          value="teacher"
-                          checked={role === 'teacher'}
-                          onChange={() => setRole('teacher')}
-                          className={styles.radioInput}
-                        />
-                        <span>Teacher</span>
-                      </label>
-                    </div>
-                  </div>
-                  <Button type="submit" className={styles.fullWidth}>Sign Up</Button>
-                </form>
-              )}
-            </>
-          )}
+      <div className={s.logoContainer}>
+        <div className={s.logoBox}>
+          <img src={Logo} alt="AetherLearn" />
         </div>
       </div>
     </div>
   );
 }
+
+export default Login;

@@ -1,0 +1,56 @@
+/* .SideBarContainer{
+    width: 5%;
+    height: calc(100vw - 70px);
+    border-right: 1px solid gray;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+.SideBarContainer:hover{
+    width: 18%;
+    box-shadow: 3px 3px 10px rgba(131, 130, 130, 0.329);
+} */
+
+.SideBarContainer {
+    width: 250px;
+    height: calc(100vw - 70px);
+    border-right: 1px solid gray;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.list1 {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    font-size: larger;
+
+    height: 30px;
+    width: 90%;
+    padding: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.HoneIcon {
+    height: 30px;
+    width: 30px;
+}
+
+.seprationTitle{
+    height: 50px;
+    border-top: 1px solid gray;
+    margin-top: 20px;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+    font-size: large;
+    font-weight: 600;
+}
+
+.list2 p{
+    margin-left: 50px;
+}
