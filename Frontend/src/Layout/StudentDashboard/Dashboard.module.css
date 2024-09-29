@@ -1,0 +1,14 @@
+.DashboardContainer {
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.ContentContainer {
+    display: flex;
+}
+
+.pagesBox {
+    height: calc(100vw - 70px);
+    width: calc(100vw - 250px);
+}

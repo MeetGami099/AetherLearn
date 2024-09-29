@@ -68,7 +68,7 @@ export  function login(email,password,navigate){
       localStorage.setItem("token", JSON.stringify(response.data.token))
       localStorage.setItem("user", JSON.stringify(response.data.user))
      
-      response.data.user.role==="student" ? (navigate('/student')) : (navigate('/faculty'))
+    navigate('/dashboard')
     }
      catch (error) {
       console.log("LOGIN API ERROR............", error)
@@ -85,7 +85,7 @@ export function logout(navigate) {
     dispatch(setUser(null))
     localStorage.removeItem("token")
     localStorage.removeItem("user")
-    navigate("/")
+    navigate("/dashboard")
     toast.success("Logged Out")
   }
 }

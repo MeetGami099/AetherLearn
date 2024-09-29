@@ -18,10 +18,10 @@ const store = configureStore({
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <React.StrictMode>
-    <BrowserRouter>
-      <App />
-      <ToastContainer />
-    </BrowserRouter>
-  </React.StrictMode>,
+      <BrowserRouter>
+        <App />
+        <ToastContainer />
+      </BrowserRouter>
+    </React.StrictMode>
   </Provider>
 )
