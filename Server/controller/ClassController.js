@@ -250,4 +250,28 @@ const leaveclass = async (req,res)=>{
     }
 }
 
-module.exports = { createClass , editclass , getclass , joinclass , leaveclass }
+const getAllClasses = async(req,res)=>{
+    try {
+        
+        if(!req.user._id){
+            return res.status(404).json({
+                success:false,message:"User id not Found"
+            })
+        }
+
+        const ownClasses = await Class.find({creator:req.user._id}).select(`_id name description subject`);
+        const joinedClasses = await Class.find({students:req.user._id}).select(`_id name description subject`)
+        
+        return res.status(200).json({
+            success:true,
+            message:"class found successfully",
+            ownClasses,
+            joinedClasses
+        })
+
+    } catch (e) {
+        console.log("error in getclass detail controller",e)
+    }
+}
+
+module.exports = { createClass , editclass , getclass , joinclass , leaveclass,getAllClasses }

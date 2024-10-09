@@ -54,3 +54,21 @@ export async function joinClass(classCode, setLoading, setOpen) {
   setLoading(false);
   toast.dismiss(toastId);
 }
+
+
+export async function getClasses(setClasses, setLoading) {
+  const toastId = toast.loading("Loading...");
+  setLoading(true);
+  try {
+    const response = await apiConnector("GET", classendpoints.GET_CLASSES);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    console.log(response.data)
+  } catch (error) {
+    toast.error(error.message);
+  }
+  setLoading(false);
+  toast.dismiss(toastId);
+}

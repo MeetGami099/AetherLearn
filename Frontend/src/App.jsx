@@ -8,6 +8,9 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Dashboard from "./Layout/StudentDashboard/Dashboard";
 import Player from "./Pages/VideoPlayer/Player";
 
+//Pages Imports
+import ClassList from "./Pages/ClassList/ClassList";
+
 export default function App() {
   return (
     <div className="App">
@@ -16,7 +19,10 @@ export default function App() {
         <Route path="/signup" element={<OpenRoute><Signup /></OpenRoute>} />
         <Route path="/verify" element={<OpenRoute><VerifyOtp /></OpenRoute>} />
 
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+          <Route path="/dashboard" element={<ClassList />} />
+          <Route path="/dashboard/cerateClasses" element={<>You Change Route</>} />
+        </Route>
         <Route path="/test" element={<Player />} />
 
       </Routes>

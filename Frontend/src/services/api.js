@@ -11,5 +11,6 @@ export const endpoints = {
 export const classendpoints = {
   CREATE_API: BASE_URL + "/class/createclass",
   JOIN_API: BASE_URL + "/class/joinclass",
+  GET_CLASSES :BASE_URL+"/class/getallclass",
 }
   
