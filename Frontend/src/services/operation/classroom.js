@@ -65,7 +65,12 @@ export async function getClasses(setClasses, setLoading) {
     if (!response.data.success) {
       throw new Error(response.data.message);
     }
-    console.log(response.data)
+
+    setClasses({
+      joinedClasses:response.data.joinedClasses,
+      ownClasses:response.data.ownClasses
+    });
+    
   } catch (error) {
     toast.error(error.message);
   }
