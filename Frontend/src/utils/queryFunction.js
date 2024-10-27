@@ -10,3 +10,8 @@ export function getQueryParam(key) {
     return url.searchParams.get(key);
 }
 
+export function clearQueryParams() {
+    const url = new URL(window.location.href);
+    url.search = ''; // Clears all query parameters
+    window.history.pushState({}, '', url);
+}

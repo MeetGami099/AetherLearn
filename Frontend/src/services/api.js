@@ -18,3 +18,6 @@ export const videoendpoints = {
   GENRATE_URL: BASE_URL + "/api/v1/aws/generate-presigned-url",
 }
   
+export const postendpoints = {
+  VIDEO_DETAILS_SAVE: BASE_URL + "/api/v1/post/updatevideodetails",
+}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import s from './UploadVideoPopup.module.css'
 import DragAndDropVideo from '../DragAndDropVideo/DragAndDropVideo';
-import DialogTitlebar from './DialogTitlebar';
 import {getQueryParam} from '../../utils/queryFunction'
+import VideoUploadDetails from '../VideoUploadDetails/VideoUploadDetails';
 
-const UploadVideoPopup = () => {
+const UploadVideoPopup = ({closeModal}) => {
 
     const [loading,setLoading] = useState(false)
     const [stage,setStage] = useState(getQueryParam('stage'))
@@ -18,11 +18,10 @@ const UploadVideoPopup = () => {
     return (
         <div className={s.container}>
             <div className={s.innerContainer}>
-                <DialogTitlebar loading={loading} />
                 
-                { (stage !== "2") && (<DragAndDropVideo loading={loading} setLoading={setLoading} />) }
+                { (stage !== "2") && (<DragAndDropVideo loading={loading} setLoading={setLoading} closeModal={closeModal} />) }
 
-                { (stage == "2") &&  (<>Come to Stage 2</>)}
+                { (stage == "2") &&  (<VideoUploadDetails loading={loading} setLoading={setLoading} closeModal={closeModal} />)}
             </div>
         </div>
     )

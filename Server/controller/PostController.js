@@ -1,7 +1,7 @@
 const User = require('../model/userDetails')
 const Class = require('../model/class.model')
 const Post = require('../model/Post.model')
-
+const Video = require('../model/video.modal')
 const createpost = async(req,res)=>{
     try {
         const user = req.user
@@ -127,4 +127,51 @@ const readposts = async(req,res)=>{
     }
 }
 
-module.exports = { createpost , editpost , readposts , deletepost }
+const updateVideoDetilas = async(req,res)=>{
+    try{
+
+        const { formData ,dbId } = req.body
+        await Video.findByIdAndUpdate({_id:dbId},{
+            $set:{
+                title:formData.videoTitle,
+                description:formData.videoDesc,
+            }
+        })
+       
+        return res.status(200).json({
+            success: true,
+            message:"Details Saved",
+        })
+
+    }catch(e){
+
+        console.log("Error occured",e)
+        return res.json({
+            success: false,
+            message:"internal Server Error",
+        })
+    }
+}
+
+const getVideos = async(req,res)=>{
+    try{
+
+        const { classroomId } = req.query
+        const response = await Video.find({classroomId:classroomId})
+       
+        return res.status(200).json({
+            success: true,
+            message:"Details Saved",
+            videos:response
+        })
+
+    }catch(e){
+
+        console.log("Error occured",e)
+        return res.json({
+            success: false,
+            message:"internal Server Error",
+        })
+    }
+}
+module.exports = { createpost , editpost , readposts , deletepost ,updateVideoDetilas,getVideos}

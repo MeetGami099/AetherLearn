@@ -12,7 +12,7 @@ const videoSchema = new mongoose.Schema({
     videoId:{
         type: String,
     },
-    name: {
+    title: {
         type: String,
     },
     description: {
