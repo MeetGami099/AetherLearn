@@ -20,4 +20,5 @@ export const videoendpoints = {
   
 export const postendpoints = {
   VIDEO_DETAILS_SAVE: BASE_URL + "/api/v1/post/updatevideodetails",
+  GET_VIDEO_METADATA: BASE_URL + "/api/v1/post/getvideos",
 }

@@ -70,3 +70,25 @@ export async function updateDetailsOfVideo(formData ,dbId, setLoading,closeModal
   
   setLoading(false);
 }
+
+
+export async function getVideoMetadata(classroomId , setData,setLoading) {
+  setLoading(true);
+
+  try {
+    
+    const response = await apiConnector("GET", postendpoints.GET_VIDEO_METADATA+`?classroomId=${classroomId}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    console.log(response.data)
+
+  
+  } catch (error) {
+    toast.error(error.message);
+  }
+
+  setLoading(false);
+}
