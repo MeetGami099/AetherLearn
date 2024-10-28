@@ -157,11 +157,10 @@ const getVideos = async(req,res)=>{
     try{
 
         const { classroomId } = req.query
-        const response = await Video.find({classroomId:classroomId})
+        const response = await Video.find({classroomId:classroomId},{_id:0,title:1,description:1,url:1,userId:1}).populate('userId', 'firstName');
        
         return res.status(200).json({
             success: true,
-            message:"Details Saved",
             videos:response
         })
 
@@ -174,4 +173,5 @@ const getVideos = async(req,res)=>{
         })
     }
 }
+
 module.exports = { createpost , editpost , readposts , deletepost ,updateVideoDetilas,getVideos}
