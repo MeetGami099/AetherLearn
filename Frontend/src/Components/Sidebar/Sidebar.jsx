@@ -15,18 +15,41 @@ const Sidebar = () => {
                 Teaching
             </div>
             <div className={s.list2}>
-                <p>BEE dsfdsf sdfsd fsdf sdf</p>
-                <p>CPP</p>
-                <p>OS</p>
+                <p className={s.classListView}>BEE dsfdsf sdfsd fsdf sdf</p>
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
             </div>
             <div className={s.seprationTitle}>
                 <SlGraduation className={s.HoneIcon} />
                 Learning
             </div>
             <div className={s.list2}>
-                <p>BEE dsfdsf sdfsd fsdf sdf</p>
-                <p>CPP</p>
-                <p>OS</p>
+                <p className={s.classListView}>BEE dsfdsf sdfsd fsdf sdf</p>
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+                { ("BEE dsfdsf sdfsd fsdf sdf".length > 15) ? (<p className={s.classListView}>BEE sdf  dsfdsf....</p>) : (<p className={s.classListView}>BEE</p>) }
+                <p className={s.classListView}>CPP</p>
+                <p className={s.classListView}>OS</p>
+
             </div>
 
         </div>

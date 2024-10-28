@@ -11,5 +11,13 @@ export const endpoints = {
 export const classendpoints = {
   CREATE_API: BASE_URL + "/class/createclass",
   JOIN_API: BASE_URL + "/class/joinclass",
+  GET_CLASSES :BASE_URL+"/class/getallclass",
+}
+
+export const videoendpoints = {
+  GENRATE_URL: BASE_URL + "/api/v1/aws/generate-presigned-url",
 }
   
+export const postendpoints = {
+  VIDEO_DETAILS_SAVE: BASE_URL + "/api/v1/post/updatevideodetails",
+}

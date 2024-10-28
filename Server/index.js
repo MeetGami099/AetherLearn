@@ -47,4 +47,8 @@ app.use('/class',classroutes)
 
 const postroutes = require('./routes/Post.route')
 
-app.use('/class/post',postroutes)
+app.use('/api/v1/post',postroutes)
+
+const awsRoute = require('./routes/Aws.route')
+
+app.use('/api/v1/aws',awsRoute)
