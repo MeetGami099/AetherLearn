@@ -8,6 +8,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Dashboard from "./Layout/StudentDashboard/Dashboard";
 import Player from "./Pages/VideoPlayer/Player";
 import UploadVideo from "./Pages/UploadVideo/UploadVideo";
+import UploadPost from "./Pages/UploadPost/UploadPost";
 
 //Pages Imports
 import ClassList from "./Pages/ClassList/ClassList";
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/dashboard" element={<ClassList />} />
 
             <Route path="/dashboard/own/:classroomID" element={<ClassroomOwner />} >
+            <Route path="/dashboard/own/:classroomID/posts" element={<UploadPost />} />
               <Route path="/dashboard/own/:classroomID/video" element={<UploadVideo />} />
             </Route>
 

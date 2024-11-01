@@ -25,7 +25,7 @@ const ClassList = () => {
                             <h1 className={s.h1Title}>Your Classes</h1>
                             {
                                 classes.ownClasses.map((item, index) => (
-                                    <Link to={`/dashboard/own/${item._id}`}>
+                                    <Link to={`/dashboard/own/${item._id}/posts`}>
                                         <ClassroomCard item={item} />
                                     </Link>
                                 ))
