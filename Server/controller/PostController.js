@@ -2,130 +2,126 @@ const User = require('../model/userDetails')
 const Class = require('../model/class.model')
 const Post = require('../model/Post.model')
 const Video = require('../model/video.modal')
-const createpost = async(req,res)=>{
+
+const createPost = async (req, res) => {
     try {
-        const user = req.user
+        const user = req.user;
+
         
-        if(user.role == 'student')
-        {
+        const { description, classroomId } = req.body; // use req.query for classroomId once frontend is ready
+
+        if(!description || !classroomId){
+            return res.json({
+                success: false,
+                message: "Data Missing",
+            });
+        }
+
+        const newPost = await Post.create({
+            description,
+            classroomId,
+            userId: user._id,
+        });
+
+        if (!newPost) {
             return res.status(400).json({
-                success:false,
-                message:"Authoraization fail"
-            })
+                success: false,
+                message: "Failed to create post"
+            });
         }
 
-        const { content , classid } = req.body // here write req.query for classid after complete frontend
-
-        const attachments = req.body?.attachments
-        const links = req.body?.links
-
-        const newpost = await Post.create({
-            content,
-            class:classid,
-            author:user._id,
-            attachments,
-            links
-        })
-
-        if(!newpost){
-            return res.status(400).json({
-                success:false,
-                message:"Failed to create post"
-            })
-        }
-
-        return res.status(200).json({
-            success:true,
-            message:"Post created successfully",
-            data:newpost
-        })
-
-
-    } catch (e) {
-        console.log("Error in createpost controller",e)
-    }
-}
-
-const deletepost = async(req,res)=>{
-    try {
-
-        const user = req.user
-
-        const {postId} =req.query
-
-        if(!postId)
-        {
-            return res.status(404).json({
-                success:false,
-                message:"Post id not get from the user"
-            })
-        }
-
-        const postdata =await Post.deleteOne({_id:postId})
-
-        if(!postdata){
-            return res.status(404).json({
-                success:false,
-                message:"Post Data not delete"
-            })
-        }
-
-        return res.status(200).json({
-            success:true,
-            message:"post data delete successfully"
-        })
-    
-
-    } catch (e) {
-        console.log("Error in deletepost controller",e)
-    }
-}
-
-const editpost = async(req,res)=>{
-    try {
-        const user = req.user
-        const {postId} = req.query
-
-        if(!postId){
-            return res.status(404).json({
-                success:false,
-                message:"Post id not get from the user"
-            })
-        }
-
-        const { content , links , attachments } = req.body
-        const postdata = await Post.updateOne({_id:postId,author:user._id},{$set:{content,attachments,links}})
-
-        if(!postdata){
-            return res.status(404).json({
-                success:false,
-                message:"Post Data not update successfully.Either the post does not exist or you are not the author."
-            })}
-
-        return res.status(200).json({
-            success:true,
-            message:"post data updated successfully"
-        })
-    } catch (e) {
-        console.log("Error in editpost controller",e)
-    }
-}
-
-const readposts = async(req,res)=>{
-    try {
-        const { classid } = req.body
-        const posts = await Post.find({ class: classid })
-        console.log("here is",posts)
         return res.status(200).json({
             success: true,
-            message:"Posts Found Successfully",
-            data:posts
-        })
+            message: "Post created successfully",
+            data: newPost
+        });
 
     } catch (e) {
-        console.log("Error in readpost controller",e)
+        console.log("Error in createPost controller", e);
+        res.status(500).json({ success: false, message: "Server error" });
     }
-}
+};
+
+const deletePost = async (req, res) => {
+    try {
+        const user = req.user;
+        const { postId } = req.query;
+
+        if (!postId) {
+            return res.status(404).json({
+                success: false,
+                message: "Post ID is required"
+            });
+        }
+
+        const postData = await Post.deleteOne({ _id: postId, userId: user._id });
+
+        if (!postData.deletedCount) {
+            return res.status(404).json({
+                success: false,
+                message: "Failed to delete post"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Post deleted successfully"
+        });
+
+    } catch (e) {
+        console.log("Error in deletePost controller", e);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+const editPost = async (req, res) => {
+    try {
+        const user = req.user;
+        const { postId ,description} = req.query;
+
+        if (!postId || !description) {
+            return res.status(404).json({
+                success: false,
+                message: "Data Is Missing"
+            });
+        }
+
+        const postData = await Post.updateOne({ _id: postId, userId: user._id }, { $set: { description } });
+
+        if (!postData.matchedCount) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found or you are not the author"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Post updated successfully"
+        });
+
+    } catch (e) {
+        console.log("Error in editPost controller", e);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+const readPosts = async (req, res) => {
+    try {
+        const { classroomId } = req.query;
+        const posts = await Post.find({ classroomId }).populate('userId', 'firstName lastName').sort({ createdAt: -1 });;
+
+        return res.status(200).json({
+            success: true,
+            message: "Posts found successfully",
+            data: posts
+        });
+
+    } catch (e) {
+        console.log("Error in readPosts controller", e);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
 
 const updateVideoDetilas = async(req,res)=>{
     try{
@@ -156,8 +152,14 @@ const updateVideoDetilas = async(req,res)=>{
 const getVideos = async(req,res)=>{
     try{
 
-        const { classroomId } = req.query
-        const response = await Video.find({classroomId:classroomId},{_id:0,title:1,description:1,url:1,userId:1}).populate('userId', 'firstName');
+        const { classroomId } = req.query;
+        if(!classroomId){
+            return res.json({
+                success: false,
+                message: "Id Missing",
+            });
+        }
+        const response = await Video.find({classroomId:classroomId},{_id:0,title:1,description:1,url:1,userId:1,createdAt:1}).populate('userId', 'firstName lastName').sort({ createdAt: -1 });
        
         return res.status(200).json({
             success: true,
@@ -174,4 +176,4 @@ const getVideos = async(req,res)=>{
     }
 }
 
-module.exports = { createpost , editpost , readposts , deletepost ,updateVideoDetilas,getVideos}
+module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos}

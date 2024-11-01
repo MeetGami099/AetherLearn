@@ -72,18 +72,18 @@ export async function updateDetailsOfVideo(formData ,dbId, setLoading,closeModal
 }
 
 
-export async function getVideoMetadata(classroomId , setData,setLoading) {
+export async function getVideoMetadata(classroomID , setData,setLoading) {
   setLoading(true);
 
   try {
     
-    const response = await apiConnector("GET", postendpoints.GET_VIDEO_METADATA+`?classroomId=${classroomId}`);
+    const response = await apiConnector("GET", postendpoints.GET_VIDEO_METADATA+`?classroomId=${classroomID}`);
 
     if (!response.data.success) {
       throw new Error(response.data.message);
     }
 
-    console.log(response.data)
+    setData(response.data.videos)
 
   
   } catch (error) {

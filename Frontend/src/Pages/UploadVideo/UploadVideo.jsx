@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
 import s from './UploadVideo.module.css'
 import { MdFileUpload } from "react-icons/md";
+import React, { useEffect, useState } from 'react'
+import VideolistAdmin from '../../Components/VideolistAdmin/VideolistAdmin';
 import UploadVideoPopup from '../../Components/UploadVideoPopup/UploadVideoPopup';
 import { clearQueryParams , getQueryParam } from '../../utils/queryFunction';
 
@@ -25,6 +26,7 @@ const UploadVideo = () => {
             <h1 className={s.title}>Upload Video</h1>
             <button className={s.btn} onClick={()=>setOpen(true)}> <MdFileUpload className={s.icon} /> Upload</button>
         </div>
+        <VideolistAdmin />
     </div>
    {open &&  <UploadVideoPopup closeModal={closeModal} />}
     </>

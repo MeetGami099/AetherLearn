@@ -76,6 +76,57 @@ const generatePresignedUrl = async (req, res) => {
     }
 };
 
+const generatePdfUrl = async (req, res) => {
+    try {
+        const { classroomID, fileType } = req.query || req.body;
+        const uuid = generateShortUUID();
 
+        //check This uuid in Db Exist or not if not thans store it [PENDING]
+        let videoEntrie = await videoModal.findOne({videoId:uuid})
 
-module.exports = {generatePresignedUrl};
+        if(videoEntrie){
+            while(videoEntrie!==null){
+                const uuid = generateShortUUID();
+                    videoEntrie = await videoModal.findOne({videoId:uuid})
+                if(!videoEntrie){break;}
+            }
+        }
+
+        const response = await videoModal.create({
+            classroomId:classroomID,
+            userId:req.user._id,
+            videoId:uuid,
+            status:"processing",
+            url:`${process.env.AWS_CLOUDFRONT}/Production/${uuid}/360.m3u8`
+        })
+
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,  
+            Key:`pdf/${req.user._id}-${classroomID}-${uuid}`,                   
+            ContentType: fileType,                
+        };
+
+        // Create a command to put the object
+        const command = new PutObjectCommand(params);
+
+        // const publicUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+
+        // Generate the presigned URL (expiration time: 5 minutes)
+        const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 300 });
+     
+        res.status(200).json({
+            success: true,
+            url: presignedUrl,
+            dbId:response._id
+        });
+
+    } catch (error) {
+        console.error('Error generating presigned URL:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong while generating the presigned URL',
+        });
+    }
+};
+
+module.exports = {generatePresignedUrl,generatePdfUrl};

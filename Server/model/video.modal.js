@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 const videoSchema = new mongoose.Schema({
     classroomId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Class',
     },
     userId:{
         type: mongoose.Schema.Types.ObjectId,
@@ -26,7 +27,7 @@ const videoSchema = new mongoose.Schema({
     url:{
         type: String,
     }
-});
+},{ timestamps: true });
 
 
 module.exports = mongoose.model('Video', videoSchema);
