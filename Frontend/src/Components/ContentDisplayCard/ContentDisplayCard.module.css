@@ -86,3 +86,7 @@
     margin-top: 10px;
     font-size: 12px;
 }
+.LinkStyle{
+    text-decoration: none;
+    color: black;
+}

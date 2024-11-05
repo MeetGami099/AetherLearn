@@ -3,7 +3,7 @@ import s from './UploadVideoPopup.module.css'
 import DragAndDropVideo from '../DragAndDropVideo/DragAndDropVideo';
 import {getQueryParam} from '../../utils/queryFunction'
 import VideoUploadDetails from '../VideoUploadDetails/VideoUploadDetails';
-
+import TempBox from '../TempBox/TempBox';
 const UploadVideoPopup = ({closeModal}) => {
 
     const [loading,setLoading] = useState(false)
@@ -16,14 +16,12 @@ const UploadVideoPopup = ({closeModal}) => {
 
     console.log(stage)
     return (
-        <div className={s.container}>
-            <div className={s.innerContainer}>
-                
-                { (stage !== "2") && (<DragAndDropVideo loading={loading} setLoading={setLoading} closeModal={closeModal} />) }
+       
+        <TempBox>
+            { (stage !== "2") && (<DragAndDropVideo loading={loading} setLoading={setLoading} closeModal={closeModal} />) }
 
-                { (stage == "2") &&  (<VideoUploadDetails loading={loading} setLoading={setLoading} closeModal={closeModal} />)}
-            </div>
-        </div>
+            { (stage == "2") &&  (<VideoUploadDetails loading={loading} setLoading={setLoading} closeModal={closeModal} />)}
+        </TempBox>
     )
 }
 

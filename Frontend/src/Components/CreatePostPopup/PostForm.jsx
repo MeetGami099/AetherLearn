@@ -6,7 +6,7 @@ import s from './PostForm.module.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const PostForm = ({ loading, setLoading, closeModal }) => {
+const PostForm = ({ loading, setLoading, closeModal}) => {
 
     const [formData, setFormData] = useState({
         description: '',

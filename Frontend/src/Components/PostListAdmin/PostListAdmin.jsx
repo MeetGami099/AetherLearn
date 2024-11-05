@@ -4,17 +4,23 @@ import { getPost } from '../../services/operation/post';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../Spinner/Spinner';
 import Option from '../Option/option';
+import { postOption } from '../../utils/optionData';
 
 
 
-const PostListAdmin = () => {
+const PostListAdmin = ({setEditOpen}) => {
+
   const { classroomID } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const handleDeletePost = (postId) => {
+    setData(prevPosts => prevPosts.filter(post => post._id !== postId));
+}
+
   useEffect(() => {
     getPost(classroomID, setLoading, setData)
-  }, [])
+  }, []);
 
   return (
     <div className={s.container32}>
@@ -43,7 +49,7 @@ const PostListAdmin = () => {
                             </div>
                           </div>
                           <div className={s.optionContaienr}>
-                            <Option />
+                            <Option optionData={postOption} id={item._id} handleDeletePost={handleDeletePost} setEditOpen={setEditOpen}/>
                           </div>
                         </div>
 
@@ -67,6 +73,7 @@ const PostListAdmin = () => {
       }
     </div>
   )
+
 }
 
 export default PostListAdmin

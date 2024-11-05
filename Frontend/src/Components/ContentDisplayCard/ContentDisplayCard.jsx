@@ -1,9 +1,9 @@
 import React from 'react'
 import s from './ContentDisplayCard.module.css'
-import { SlOptionsVertical } from 'react-icons/sl'; 
 import Option from '../Option/option';
-
-const ContentDisplayCard = ({ item, Icon }) => {
+import { Link } from 'react-router-dom';
+import { postOption , videoOption} from '../../utils/optionData';
+const ContentDisplayCard = ({ item, Icon,classroomID}) => {
     const { userId, createdAt, title, description } = item;
 
     return (
@@ -24,19 +24,20 @@ const ContentDisplayCard = ({ item, Icon }) => {
                     </div>
                 </div>
                 <div className={s.optionContaienr}>
-                    <Option />
+                    <Option optionData={videoOption}/>
                 </div>
             </div>
 
             {/* Video Display  */}
-
-            <div className={s.videoDisplay}>
-                <div className={s.imgConatiner}> <Icon /></div>
-                <div className={s.postContent}>
-                    <p>{title}</p>
-                    <p className={s.cotentType}>VIDEO</p>
+            <Link to={`/dashboard/own/${classroomID}/video/${item.videoId}`} className={s.LinkStyle}>
+                <div className={s.videoDisplay}>
+                    <div className={s.imgConatiner}> <Icon /></div>
+                    <div className={s.postContent}>
+                        <p>{title}</p>
+                        <p className={s.cotentType}>VIDEO</p>
+                    </div>
                 </div>
-            </div>
+            </Link>
 
             <div className={s.decriptionBox}>
                 <p>{description}</p>

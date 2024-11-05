@@ -4,6 +4,7 @@ import { videoendpoints ,postendpoints } from "../api";
 import axios from 'axios';
 import {setQueryParam} from '../../utils/queryFunction'
 
+
 export async function createPost(description ,classroomID, setLoading,closeModal) {
     setLoading(true);
   
@@ -44,4 +45,43 @@ export async function getPost( classroomID, setLoading,setData) {
     }
     
     setLoading(false);
+}
+
+export async function deletePost(postId,handleDeletePost) {
+  const toastId = toast.loading("Deleting Post")
+
+  try {
+    const response = await apiConnector("POST", postendpoints.DELETE_POST+`?postId=${postId}`);
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    toast.success("Deleted");
+    handleDeletePost(postId);
+  } catch (error) {
+    toast.error(error.message);
+  }
+  toast.dismiss(toastId);
+}
+
+// postId ,description
+
+export async function editPost(description,id,setLoading,closeModal) {
+  setLoading(true); 
+
+  try {
+    
+    const response = await apiConnector("POST", postendpoints.EDIT_POST , { postId:id ,description:description});
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    console.log(response.data)
+    closeModal();
+  
+  } catch (error) {
+    toast.error(error.message);
+  }
+  
+  setLoading(false);
 }

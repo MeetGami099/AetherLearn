@@ -68,6 +68,7 @@ const Login = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              placeholder='johndoe@gmail.com'
               required
             />
             {errors.email && <span className="error">{errors.email}</span>}
@@ -80,6 +81,7 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              placeholder='Minimum 6 Character long'
               required
             />
             {errors.password && <span className="error">{errors.password}</span>}
