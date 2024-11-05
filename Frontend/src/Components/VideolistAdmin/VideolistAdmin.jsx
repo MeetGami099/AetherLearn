@@ -3,8 +3,7 @@ import s from './VideolistAdmin.module.css'
 import { getVideoMetadata } from '../../services/operation/video';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../Spinner/Spinner';
-import { PiFileVideoLight } from "react-icons/pi"
-import { SlOptionsVertical } from "react-icons/sl";
+import { PiFileVideoLight } from "react-icons/pi";
 import ContentDisplayCard from '../ContentDisplayCard/ContentDisplayCard';
 const VideolistAdmin = () => {
 
@@ -26,7 +25,10 @@ const VideolistAdmin = () => {
                                 <div >
                                     {
                                         data.map((item) => (
-                                            <ContentDisplayCard item={item} Icon={PiFileVideoLight} />
+                                            
+                                            
+                                                <ContentDisplayCard item={item} Icon={PiFileVideoLight} classroomID={classroomID} />
+                                            
                                         ))
                                     }
                                 </div>

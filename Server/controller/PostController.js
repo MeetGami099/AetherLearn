@@ -77,12 +77,12 @@ const deletePost = async (req, res) => {
 const editPost = async (req, res) => {
     try {
         const user = req.user;
-        const { postId ,description} = req.query;
+        const { postId ,description} = req.body;
 
         if (!postId || !description) {
             return res.status(404).json({
                 success: false,
-                message: "Data Is Missing"
+                message: "Data is missing"
             });
         }
 
@@ -159,7 +159,7 @@ const getVideos = async(req,res)=>{
                 message: "Id Missing",
             });
         }
-        const response = await Video.find({classroomId:classroomId},{_id:0,title:1,description:1,url:1,userId:1,createdAt:1}).populate('userId', 'firstName lastName').sort({ createdAt: -1 });
+        const response = await Video.find({classroomId:classroomId},{_id:0,title:1,videoId:1,description:1,url:1,userId:1,createdAt:1}).populate('userId', 'firstName lastName').sort({ createdAt: -1 });
        
         return res.status(200).json({
             success: true,

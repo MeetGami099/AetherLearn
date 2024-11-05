@@ -1,11 +1,12 @@
 import React from 'react'
 import Videoplayer from './Videoplayer';
-const  Player = () => {
-    const videoUrl = 'https://aetherlean.s3.ap-south-1.amazonaws.com/Production/VideoId26/360.m3u8';
+import s from './player.module.css'
 
+const  Player = () => {
+
+    const videoUrl = 'https://aetherlean.s3.ap-south-1.amazonaws.com/Production/VideoId26/360.m3u8';
     return (
-      <div>
-        <h1>HLS Video Player</h1>
+      <div className={s.conatiner}>
         <Videoplayer videoUrl={videoUrl} />
       </div>
     );
