@@ -1,10 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit"
+import Cookies from 'js-cookie';
+
+// const initialState = {
+//     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+//     token: localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null,
+//     loading: false,
+// };
 
 const initialState = {
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
-    token: localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null,
+    token: Cookies.get('token') ? Cookies.get('token') : null,
     loading: false,
 };
+
 
 const profileSlice = createSlice({
     name:"profile",

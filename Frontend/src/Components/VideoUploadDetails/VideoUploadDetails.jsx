@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import s from './VideoUploadDetails.module.css';
 import { getQueryParam } from '../../utils/queryFunction';
-import { updateDetailsOfVideo } from '../../services/operation/video';
 import DialogTitlebar from '../UploadVideoPopup/DialogTitlebar';
+import { updateDetailsOfVideo } from '../../services/operation/video';
 
-const VideoUploadDetails = ( {loading , setLoading ,closeModal} ) => {
+const VideoUploadDetails = ( {closeModal, title,submitHandler} ) => {
    
+    const [loading,setLoading] = useState(false)
     const [formData, setFormData] = useState({
         videoTitle: '',
         videoDesc: '',
@@ -37,9 +38,8 @@ const VideoUploadDetails = ( {loading , setLoading ,closeModal} ) => {
         } else {
             // Submit the form or perform the save action
             console.log('Form submitted:', formData);
-            updateDetailsOfVideo(formData,getQueryParam('dbId'),setLoading,closeModal)
+            updateDetailsOfVideo(formData,getQueryParam('id'),setLoading,closeModal)
             
-
             setFormData({ videoTitle: '', videoDesc: '' });
             setErrors({});
         }
@@ -47,7 +47,7 @@ const VideoUploadDetails = ( {loading , setLoading ,closeModal} ) => {
 
     return (
        <>
-         <DialogTitlebar loading={loading} title={"Details"} closeModal={closeModal} />
+         <DialogTitlebar loading={loading} title={title} closeModal={closeModal} />
         <form className={s.container} onSubmit={handleSubmit}>
 
             <div className={s.filedContainer}>

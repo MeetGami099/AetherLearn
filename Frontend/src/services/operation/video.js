@@ -18,7 +18,7 @@ export async function getSignedUrl( setLoading,classroomID,file) {
     console.log(response.data.url)
     
 
-    setQueryParam('dbId', response.data.dbId);
+    setQueryParam('id', response.data.dbId);
     setQueryParam('stage', 2);
     setLoading(false);
     // uploadFile(file,response.data.url)

@@ -11,7 +11,6 @@ import { getQueryParam } from '../../utils/queryFunction';
 const EditTextEditor = ({ loading, setLoading, closeModal }) => {   
 
     const id= getQueryParam('id');
-    console.log("Printg ID when Derivong",id)
 
     const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({

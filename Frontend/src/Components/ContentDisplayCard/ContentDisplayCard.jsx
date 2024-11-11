@@ -2,9 +2,12 @@ import React from 'react'
 import s from './ContentDisplayCard.module.css'
 import Option from '../Option/option';
 import { Link } from 'react-router-dom';
-import { postOption , videoOption} from '../../utils/optionData';
-const ContentDisplayCard = ({ item, Icon,classroomID}) => {
+import {videoOption} from '../../utils/optionData';
+
+const ContentDisplayCard = ({ item, Icon,classroomID,handleDeletePost,setEditOpen}) => {
+
     const { userId, createdAt, title, description } = item;
+
 
     return (
         <div className={s.videoContainer}>
@@ -24,7 +27,8 @@ const ContentDisplayCard = ({ item, Icon,classroomID}) => {
                     </div>
                 </div>
                 <div className={s.optionContaienr}>
-                    <Option optionData={videoOption}/>
+                    {/* <Option optionData={videoOption}/> */}
+                    <Option optionData={videoOption} id={item._id} handleDeletePost={handleDeletePost} setEditOpen={setEditOpen}/>
                 </div>
             </div>
 
