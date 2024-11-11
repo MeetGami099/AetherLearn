@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createPost , deletePost , readPosts , editPost ,updateVideoDetilas, getVideos,deleteVideo } = require('../controller/PostController')
+const { createPost , deletePost , readPosts , editPost ,updateVideoDetilas, getVideos,deleteVideo , getpost , getvideo } = require('../controller/PostController')
 const { isLoggedin} = require('../middleware/AuthMiddleware')
 
 router.post('/createpost',isLoggedin ,createPost)
@@ -12,5 +12,7 @@ router.get('/getpost',isLoggedin,readPosts);
 router.get('/getvideos',isLoggedin , getVideos);
 router.post('/deletevideo',isLoggedin, deleteVideo)
 
+router.get('/getpostbyid',isLoggedin,getpost);
+router.get('/getvideobyid',isLoggedin,getvideo);
 
 module.exports = router

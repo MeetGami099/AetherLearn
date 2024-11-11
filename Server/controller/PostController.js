@@ -206,5 +206,56 @@ const deleteVideo = async (req, res) => {
     }
 };
 
+const getpost = async (req,res) => {
+    try{
+        const {ID} = req.query;
+        if(!ID){
+            return res.status(404).json({
+                success:false,
+                message:"post Id not get it"
+            })
+        }
+        const posts = await Post.find({ _id: ID });
+        if(!posts){
+            return res.status(404).json({
+                success:false,
+                message:"post not get it"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            data:posts,
+        });
+    }catch(e){
+        console.log("Error in getPost controller",e)
 
-module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos,deleteVideo}
+    }
+}
+
+const getvideo = async (req,res) => {
+    try{
+        const {ID} = req.query;
+        if(!ID){
+            return res.status(404).json({
+                success:false,
+                message:"video Id not get it"
+            })
+        }
+        const video = await Video.find({ _id: ID });
+        if(!video){
+            return res.status(404).json({
+                success:false,
+                message:"video not get it"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            data:video,
+        });
+    }catch(e){
+        console.log("Error in getvideo controller",e)
+
+    }
+}
+
+module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos,deleteVideo , getpost , getvideo}
