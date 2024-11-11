@@ -1,5 +1,3 @@
-const User = require('../model/userDetails')
-const Class = require('../model/class.model')
 const Post = require('../model/Post.model')
 const Video = require('../model/video.modal')
 
@@ -159,7 +157,7 @@ const getVideos = async(req,res)=>{
                 message: "Id Missing",
             });
         }
-        const response = await Video.find({classroomId:classroomId},{_id:0,title:1,videoId:1,description:1,url:1,userId:1,createdAt:1}).populate('userId', 'firstName lastName').sort({ createdAt: -1 });
+        const response = await Video.find({classroomId:classroomId},{_id:1,title:1,videoId:1,description:1,url:1,userId:1,createdAt:1}).populate('userId', 'firstName lastName').sort({ createdAt: -1 });
        
         return res.status(200).json({
             success: true,
@@ -176,4 +174,37 @@ const getVideos = async(req,res)=>{
     }
 }
 
-module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos}
+const deleteVideo = async (req, res) => {
+    try {
+        const user = req.user;
+        const { videoId } = req.query;
+
+        if (!videoId) {
+            return res.status(404).json({
+                success: false,
+                message: "Video ID is required"
+            });
+        }
+
+        const postData = await Video.deleteOne({ _id: videoId, userId: user._id });
+
+        if (!postData.deletedCount) {
+            return res.status(404).json({
+                success: false,
+                message: "Failed to delete Video"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Video deleted successfully"
+        });
+
+    } catch (e) {
+        console.log("Error in deletePost controller", e);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+
+module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos,deleteVideo}

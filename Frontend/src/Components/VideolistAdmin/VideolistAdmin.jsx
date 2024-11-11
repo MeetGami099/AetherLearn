@@ -5,11 +5,17 @@ import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../Spinner/Spinner';
 import { PiFileVideoLight } from "react-icons/pi";
 import ContentDisplayCard from '../ContentDisplayCard/ContentDisplayCard';
-const VideolistAdmin = () => {
+
+const VideolistAdmin = ({setEditOpen}) => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const { classroomID } = useParams();
+
+    const handleDeletePost = (postId) => {
+        setData(prevPosts => prevPosts.filter(post => post._id !== postId));
+    }
+    
 
     useEffect(() => {
         getVideoMetadata(classroomID, setData, setLoading)
@@ -27,7 +33,7 @@ const VideolistAdmin = () => {
                                         data.map((item) => (
                                             
                                             
-                                                <ContentDisplayCard item={item} Icon={PiFileVideoLight} classroomID={classroomID} />
+                                                <ContentDisplayCard item={item} Icon={PiFileVideoLight} classroomID={classroomID} handleDeletePost={handleDeletePost} setEditOpen={setEditOpen}/>
                                             
                                         ))
                                     }

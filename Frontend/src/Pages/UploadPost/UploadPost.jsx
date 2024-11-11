@@ -14,6 +14,7 @@ export const openEdit = (setEditOpen,id) => {
 }
 
 const UploadPost = () => {
+  
     const [open,setOpen] = useState(false);
     const [editOpen,setEditOpen] = useState(false);
     const [loading, setLoading] = useState(false)

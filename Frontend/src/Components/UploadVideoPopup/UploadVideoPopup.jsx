@@ -4,6 +4,7 @@ import DragAndDropVideo from '../DragAndDropVideo/DragAndDropVideo';
 import {getQueryParam} from '../../utils/queryFunction'
 import VideoUploadDetails from '../VideoUploadDetails/VideoUploadDetails';
 import TempBox from '../TempBox/TempBox';
+import { updateDetailsOfVideo } from '../../services/operation/video';
 const UploadVideoPopup = ({closeModal}) => {
 
     const [loading,setLoading] = useState(false)
@@ -20,7 +21,7 @@ const UploadVideoPopup = ({closeModal}) => {
         <TempBox>
             { (stage !== "2") && (<DragAndDropVideo loading={loading} setLoading={setLoading} closeModal={closeModal} />) }
 
-            { (stage == "2") &&  (<VideoUploadDetails loading={loading} setLoading={setLoading} closeModal={closeModal} />)}
+            { (stage == "2") &&  (<VideoUploadDetails closeModal={closeModal} title={"Details"} submitHandler={updateDetailsOfVideo} />)}
         </TempBox>
     )
 }

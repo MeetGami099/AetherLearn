@@ -8,6 +8,7 @@ const DialogTitlebar = ({loading , title ,closeModal}) => {
             <div className={s.tempTileFix}>
                 <h4>{title}</h4>
                 {title=="Upload Video" && <IoCloseCircleOutline className={s.closeicon} onClick={()=>closeModal()}/>}
+                {title=="Edit Details" && <IoCloseCircleOutline className={s.closeicon} onClick={()=>closeModal()}/>}
                 {title=="Post" && <IoCloseCircleOutline className={s.closeicon} onClick={()=>closeModal()}/>}
                 {title=="Edit Post" && <IoCloseCircleOutline className={s.closeicon} onClick={()=>closeModal()}/>}
                     
