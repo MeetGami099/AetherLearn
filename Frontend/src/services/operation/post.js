@@ -101,3 +101,47 @@ export async function editPost(description,id,setLoading,closeModal) {
   
   setLoading(false);
 }
+
+export async function getPostById( id, setLoading,setFormData) {
+  setLoading(true);
+
+  try {
+    
+    const response = await apiConnector("GET", postendpoints.GET_POST_EDIT+`?ID=${id}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    console.log("Printng Response",response.data.data[0].description)
+    setFormData({
+      description:response.data.data[0].description
+    })
+  
+  } catch (error) {
+    toast.error(error.message);
+  }
+  
+  setLoading(false);
+}
+
+export async function getVideoById( ID, setLoading,setData) {
+  setLoading(true);
+
+  try {
+    
+    const response = await apiConnector("GET", postendpoints.GET_VIDEO_EDIT+`?ID=${ID}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    console.log(response.data)
+    setData(response.data.data)
+  
+  } catch (error) {
+    toast.error(error.message);
+  }
+  
+  setLoading(false);
+}

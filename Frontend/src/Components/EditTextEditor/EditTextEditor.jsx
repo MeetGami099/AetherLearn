@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import s from './EditTextEditor.module.css';
 import { useParams } from "react-router-dom";
-import { editPost } from '../../services/operation/post';
+import { editPost, getPostById } from '../../services/operation/post';
 import DialogTitlebar from '../UploadVideoPopup/DialogTitlebar';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -46,9 +46,9 @@ const EditTextEditor = ({ loading, setLoading, closeModal }) => {
         }
     };
 
-    // useEffect(()=>{
-        
-    // },[])
+    useEffect( ()=>{
+        getPostById(id,setLoading,setFormData)
+    },[]);
 
 
     return (
