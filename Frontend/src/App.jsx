@@ -27,10 +27,12 @@ export default function App() {
             <Route path="/dashboard" element={<ClassList />} />
 
             <Route path="/dashboard/own/:classroomID" element={<ClassroomOwner />} >
-            <Route path="/dashboard/own/:classroomID/posts" element={<UploadPost />} />
+              <Route path="/dashboard/own/:classroomID/posts" element={<UploadPost />} />
               <Route path="/dashboard/own/:classroomID/video" element={<UploadVideo />} />
               <Route path="/dashboard/own/:classroomID/video/:videoID" element={<Player />} />
             </Route>
+
+            <Route path="/dashboard/joined/:classroomID" element={<>Building Student Side</>} />
 
         </Route>
         
