@@ -113,7 +113,6 @@ export async function getPostById( id, setLoading,setFormData) {
       throw new Error(response.data.message);
     }
 
-    console.log("Printng Response",response.data.data[0].description)
     setFormData({
       description:response.data.data[0].description
     })
@@ -125,7 +124,7 @@ export async function getPostById( id, setLoading,setFormData) {
   setLoading(false);
 }
 
-export async function getVideoById( ID, setLoading,setData) {
+export async function getVideoById( ID, setLoading,setFormData) {
   setLoading(true);
 
   try {
@@ -136,8 +135,12 @@ export async function getVideoById( ID, setLoading,setData) {
       throw new Error(response.data.message);
     }
 
-    console.log(response.data)
-    setData(response.data.data)
+    console.log(response.data.data[0].title)
+    setFormData({
+      videoTitle:response.data.data[0].title,
+      videoDesc:response.data.data[0].description
+    })
+   
   
   } catch (error) {
     toast.error(error.message);

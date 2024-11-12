@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './VideoUploadDetails.module.css';
 import { getQueryParam } from '../../utils/queryFunction';
 import DialogTitlebar from '../UploadVideoPopup/DialogTitlebar';
 import { updateDetailsOfVideo } from '../../services/operation/video';
+import { getVideoById } from '../../services/operation/post';
 
 const VideoUploadDetails = ( {closeModal, title,submitHandler} ) => {
    
@@ -20,6 +21,11 @@ const VideoUploadDetails = ( {closeModal, title,submitHandler} ) => {
             [name]: value,
         }));
     };
+    useEffect(()=>{
+        if(title=="Edit Details"){
+            getVideoById(getQueryParam('id'),setLoading,setFormData)
+        }
+    },[])
 
     const handleSubmit = (e) => {
         e.preventDefault();
