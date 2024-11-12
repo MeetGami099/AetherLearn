@@ -13,6 +13,8 @@ import UploadPost from "./Pages/UploadPost/UploadPost";
 //Pages Imports
 import ClassList from "./Pages/ClassList/ClassList";
 import ClassroomOwner from "./Pages/ClassroomOwner/ClassroomOwner";
+import ClassroomStudent from "./Pages/ClassroomStudent/ClassroomStudent";
+import Posts from "./Pages/Posts/Posts";
 
 export default function App() {
   return (
@@ -30,9 +32,15 @@ export default function App() {
               <Route path="/dashboard/own/:classroomID/posts" element={<UploadPost />} />
               <Route path="/dashboard/own/:classroomID/video" element={<UploadVideo />} />
               <Route path="/dashboard/own/:classroomID/video/:videoID" element={<Player />} />
+              <Route path="/dashboard/own/:classroomID/stream" element={<>Comign Soon..</>} />
             </Route>
 
-            <Route path="/dashboard/joined/:classroomID" element={<>Building Student Side</>} />
+            <Route path="/dashboard/joined/:classroomID" element={<ClassroomStudent />} > 
+              <Route path="/dashboard/joined/:classroomID/posts" element={<Posts />} />
+              <Route path="/dashboard/joined/:classroomID/video" element={<>Coming Soon..</>} />
+              <Route path="/dashboard/joined/:classroomID/video/:videoID" element={<Player />} />
+              <Route path="/dashboard/joined/:classroomID/stream" element={<>Comign Soon..</>} />
+            </Route>
 
         </Route>
         
