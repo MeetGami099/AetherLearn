@@ -27,4 +27,8 @@ export const postendpoints = {
   VIDEO_DETAILS_SAVE: BASE_URL + "/api/v1/post/updatevideodetails",
   GET_VIDEO_METADATA: BASE_URL + "/api/v1/post/getvideos",
   DELETE_VIDEO : BASE_URL + "/api/v1/post/deletevideo",
+  
+  GET_POST_EDIT: BASE_URL + "/api/v1/post/getpostbyid",
+  GET_VIDEO_EDIT: BASE_URL + "/api/v1/post/getvideobyid",
+  
 }
