@@ -15,6 +15,7 @@ import ClassList from "./Pages/ClassList/ClassList";
 import ClassroomOwner from "./Pages/ClassroomOwner/ClassroomOwner";
 import ClassroomStudent from "./Pages/ClassroomStudent/ClassroomStudent";
 import Posts from "./Pages/Posts/Posts";
+import StreamDashboard from "./Pages/StreamDashboard/StreamDashboard";
 
 export default function App() {
   return (
@@ -32,7 +33,7 @@ export default function App() {
               <Route path="/dashboard/own/:classroomID/posts" element={<UploadPost />} />
               <Route path="/dashboard/own/:classroomID/video" element={<UploadVideo />} />
               <Route path="/dashboard/own/:classroomID/video/:videoID" element={<Player />} />
-              <Route path="/dashboard/own/:classroomID/stream" element={<>Comign Soon..</>} />
+              <Route path="/dashboard/own/:classroomID/stream" element={<StreamDashboard />} />
             </Route>
 
             <Route path="/dashboard/joined/:classroomID" element={<ClassroomStudent />} > 
