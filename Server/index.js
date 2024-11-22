@@ -8,7 +8,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
-dotenv.config();
+// dotenv.config();
+require('dotenv').config({ path: '../.env' });
 const PORT = process.env.PORT || 4000;
 
 //database connect
