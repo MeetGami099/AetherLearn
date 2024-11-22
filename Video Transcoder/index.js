@@ -1,3 +1,5 @@
+const axios = require("axios"); // Import axios
+
 const {
   S3Client,
   GetObjectCommand,
@@ -105,7 +107,16 @@ async function uploadFolderToS3(bucketName, folderPath, s3FolderPath) {
         });
 
         await s3Client.send(putCommand);
-        console.log(`Uploaded ${filePath} to s3://${bucketName}/${s3Key}`);
+        console.log(`Uploaded ${filePath} to s3://${bucketName}/${s3Key}`); 
+        //api call
+        try {
+          const response = await axios.get("http://localhost:4000/api/v1/aws/statuschanger", {
+            params: { videoId: process.env.VIDEO_ID },
+          });
+          console.log("API Response:", response.data);
+        } catch (apiError) {
+          console.error("Error calling API:", apiError.message);
+        }
       }
     }
   } catch (error) {
