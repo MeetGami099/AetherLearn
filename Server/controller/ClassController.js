@@ -274,4 +274,33 @@ const getAllClasses = async(req,res)=>{
     }
 }
 
-module.exports = { createClass , editclass , getclass , joinclass , leaveclass,getAllClasses }
+
+const getmembers = async (req,res)=>{
+    try {
+        const {classCode} = req.query
+        // console.log(classCode)
+        const getclassfromcode = await Class.findOne({classCode:classCode}) 
+        if(!getclassfromcode){
+            return res.status(404).json({
+                message:"class not found",
+                success:false})
+        }
+
+        const teachers = getclassfromcode.facultys
+        const students = getclassfromcode.students
+
+        return res.status(200).json({
+            success:true,
+            message:"data got successfully",
+            teachers,
+            students
+        })
+
+    }
+    catch(err){
+        console.log("error in get members controller",err)
+
+    }
+}
+
+module.exports = { createClass , editclass , getclass , joinclass , leaveclass,getAllClasses ,getmembers}

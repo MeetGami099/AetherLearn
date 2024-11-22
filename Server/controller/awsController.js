@@ -129,4 +129,27 @@ const generatePdfUrl = async (req, res) => {
     }
 };
 
-module.exports = {generatePresignedUrl,generatePdfUrl};
+const statuschange = async (req,res)=>{
+    try {
+        const {videoId} = req.query
+        console.log(videoId)
+        const video1 = await videoModal.findOneAndUpdate({videoId:videoId},{status:'publish'})
+        if(!video1){
+            return res.status(404).json({
+                success: false,
+                message: 'Video not found',
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message:"status change successfully"
+        })
+
+
+    } catch (e) {
+        confirm.log('error in status change controller',e)
+        return res.status(500)
+    }
+}
+
+module.exports = {generatePresignedUrl,generatePdfUrl,statuschange};
