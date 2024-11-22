@@ -20,7 +20,7 @@ const PostListAdmin = ({setEditOpen}) => {
 
   useEffect(() => {
     getPost(classroomID, setLoading, setData)
-  }, []);
+  }, [classroomID]);
 
   return (
     <div className={s.container32}>

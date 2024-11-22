@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import s from './ClassList.module.css';
-import { getClasses } from '../../services/operation/classroom';
 import { Link } from 'react-router-dom'
 import ClassroomCard from '../../Components/ClassroomCard/ClassroomCard';
+import { useSelector } from 'react-redux';
 const ClassList = () => {
 
-    const [classes, setClasses] = useState({
-        ownClasses: [],
-        joinedClasses: []
-    });
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        getClasses(setClasses, setLoading);
-    }, [])
+    const { classes, loading } = useSelector((state) => state.classes);
 
     return (
         <div className={s.container}>

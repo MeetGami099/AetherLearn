@@ -41,3 +41,17 @@
     height: 80%;
     width: auto;
 }
+
+.temp {
+    height: 100%;
+    width: 100;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+}
+
+.temp img {
+    height: 80%;
+    width: auto;
+}

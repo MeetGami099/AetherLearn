@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { apiConnector } from "../connector";
 import { classendpoints } from "../api";
+import { setClasses,setLoading} from "../../slices/classlist";
 
 export async function createClass(
   name,
@@ -76,4 +77,29 @@ export async function getClasses(setClasses, setLoading) {
   }
   setLoading(false);
   toast.dismiss(toastId);
+}
+
+
+export  function getClasses2(){
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...")
+    dispatch(setLoading(true))
+    try {
+          const response = await apiConnector("GET", classendpoints.GET_CLASSES);
+      
+          if (!response.data.success) {
+            throw new Error(response.data.message);
+          }
+      
+          dispatch(setClasses({
+            joinedClasses:response.data.joinedClasses,
+            ownClasses:response.data.ownClasses
+          }));
+          
+        } catch (error) {
+          toast.error(error.message);
+        }
+    dispatch(setLoading(false))
+    toast.dismiss(toastId)
+  }
 }
