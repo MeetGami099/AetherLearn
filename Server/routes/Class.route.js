@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { isLoggedin , isStudent , isFaculty ,isAdmin} = require('../middleware/AuthMiddleware')
 
-const {editclass,createClass, getclass, joinclass, leaveclass,getAllClasses} = require('../controller/ClassController')
+const {editclass,createClass, getclass, joinclass, leaveclass,getAllClasses,getmembers} = require('../controller/ClassController')
 // for teachers only do this thing
 router.post('/createclass',isLoggedin, createClass)
 router.post('/editclass',isLoggedin,editclass)
@@ -18,5 +18,7 @@ router.post('/joinclass',isLoggedin,joinclass)
 
 //leave class for student and faculty who created class 
 router.post('/leaveclass',isLoggedin,leaveclass)
+
+router.get('/getpeoples',isLoggedin,getmembers)
 
 module.exports = router
