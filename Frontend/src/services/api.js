@@ -12,6 +12,8 @@ export const classendpoints = {
   CREATE_API: BASE_URL + "/class/createclass",
   JOIN_API: BASE_URL + "/class/joinclass",
   GET_CLASSES :BASE_URL+"/class/getallclass",
+  GET_POPLES :BASE_URL+"/class/getpeoples",
+  
 }
 
 export const videoendpoints = {

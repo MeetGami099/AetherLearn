@@ -103,3 +103,22 @@ export  function getClasses2(){
     toast.dismiss(toastId)
   }
 }
+
+export async function getPeoples(classroomID,setData, setLoading) {
+  const toastId = toast.loading("Loading...");
+  setLoading(true);
+  try {
+    const response = await apiConnector("GET", classendpoints.GET_POPLES+`?classroomID=${classroomID}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    setData(response.data.students);
+    
+  } catch (error) {
+    toast.error(error.message);
+  }
+  setLoading(false);
+  toast.dismiss(toastId);
+}

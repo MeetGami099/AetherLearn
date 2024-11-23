@@ -277,9 +277,15 @@ const getAllClasses = async(req,res)=>{
 
 const getmembers = async (req,res)=>{
     try {
-        const {classCode} = req.query
+        const {classroomID} = req.query
         // console.log(classCode)
-        const getclassfromcode = await Class.findOne({classCode:classCode}) 
+        // const getclassfromcode = await Class.findOne({_id:classroomID}) ;
+
+        const getclassfromcode = await Class.findOne({ _id: classroomID })
+        .populate('facultys', 'firstName lastName _id') // Only include specific fields from User
+        .populate('students', 'firstName lastName _id');
+
+
         if(!getclassfromcode){
             return res.status(404).json({
                 message:"class not found",

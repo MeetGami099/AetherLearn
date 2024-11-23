@@ -22,6 +22,13 @@ const ClassList = () => {
                                     </Link>
                                 ))
                             }
+                        </>)
+                    }
+
+
+                    {
+
+                        classes.joinedClasses.length == 0 ? (<>You dont Joined any Clsses</>) : (<>
                             <h1 className={s.h1Title}>Joined Classes</h1>
                             {
                                 classes.joinedClasses.map((item, index) => (
@@ -32,6 +39,8 @@ const ClassList = () => {
                             }
                         </>)
                     }
+
+        
                 </>)
             }
         </div>
