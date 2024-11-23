@@ -309,4 +309,86 @@ const getmembers = async (req,res)=>{
     }
 }
 
-module.exports = { createClass , editclass , getclass , joinclass , leaveclass,getAllClasses ,getmembers}
+
+const removemember = async(req,res)=>{
+    try {
+        const {classRoomId , studentId} = req.query
+        const classRoom = await Class.findById(classRoomId)
+        if(!classRoom){
+            return res.status(404).json({
+                message:"class not found",
+                success:false
+                })
+                }
+                const student = await User.findById({_id:studentId})
+                if(!student){
+                    return res.status(404).json({
+                        message:"student not found",
+                        success:false
+                        })
+                        }
+                        const classRoomStudent = await Class.findOne({_id:classRoomId,students:studentId})
+                        if(!classRoomStudent){
+                            return res.status(404).json({
+                                message:"student not in class",
+                                success:false
+                            })
+                        }
+                        await Class.deleteOne({classRoom:classRoomId,student:studentId})
+                        return res.status(200).json({
+                            success:true,
+                            message:"student removed successfully",
+                            classRoomId:classRoomId,
+                            studentId:studentId
+                            })
+            
+
+    } catch (e) {
+        console.log("error in removemember controller",e)
+    }
+}
+
+const classdetail = async(req,res) => {
+    try {
+        const {classRoomId} = req.body
+        console.log(classRoomId)
+        const classRoom = await Class.findById(classRoomId).select("name description subject classCode")
+        if(!classRoom){
+            return res.status(404).json({
+                message:"class not found",
+                success:false
+                })
+                }
+        return res.status(200).json({
+            message:'class detail fetch successfully',
+            classRoom: classRoom,
+            success:true
+        })
+    }
+    catch(e){
+        console.log("error in classdetail controller",e)
+    }
+}
+
+const updateclassdetail = async(req,res)=>{
+    try {
+        const {classId}=req.query
+        const {name , subject ,description} = req.body
+        const classRoom = await Class.findByIdAndUpdate(classId,{name,subject,description},{new:true})
+        if(!classRoom){
+            return res.status(404).json({
+                message:"class not found",
+                success:false
+                })
+                }
+                return res.status(200).json({
+                    message:"class detail updated successfully",
+                    classRoom:classRoom,
+                    success:true
+                    })
+    } catch (e) {
+        console.log('error in updateclassdetail controller',e)
+    }
+}
+
+module.exports = { createClass , editclass , getclass , joinclass , leaveclass,getAllClasses ,getmembers ,removemember,classdetail,updateclassdetail}
