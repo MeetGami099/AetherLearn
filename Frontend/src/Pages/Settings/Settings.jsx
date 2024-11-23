@@ -1,8 +1,16 @@
 // Settings.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './Settings.module.css'; // This should be your styles file
-
+import { setLoading } from '../../slices/classlist';
+import { classDetails } from '../../services/operation/classroom';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 const Settings = () => {
+
+
+  const [loading, setLoading] = useState(false);
+  const {classroomID} = useParams();
+  const [classCode, setClassCode] = useState('XXXXXX');
   const [formData, setFormData] = useState({
     className: '',
     subject: '',
@@ -20,13 +28,17 @@ const Settings = () => {
     console.log(formData);
   };
 
+  useEffect(()=>{
+    classDetails(classroomID,setLoading,setFormData,setClassCode)
+  },{classroomID})
+
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <p className={s.title}>Settings</p>
       <section className={s.container}>
       <div className={s.card}>
         <div className={s.cardDetails}>
-          <p className={s.textTitle}>XXXXXX</p>
+          <p className={s.textTitle}>{classCode}</p>
         </div>
         <button className={s.cardButton}>Class code</button>
       </div>
@@ -39,7 +51,7 @@ const Settings = () => {
             placeholder=""
             type="text"
             name="classname"
-            value={formData.classname}
+            value={formData.className}
             onChange={handleChange}
             className={s.input}
           />

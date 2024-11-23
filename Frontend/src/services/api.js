@@ -13,6 +13,9 @@ export const classendpoints = {
   JOIN_API: BASE_URL + "/class/joinclass",
   GET_CLASSES :BASE_URL+"/class/getallclass",
   GET_POPLES :BASE_URL+"/class/getpeoples",
+  REMOVE_MEMBER :BASE_URL+"/class/removemember",
+  CLASS_DETAILS :BASE_URL +"/class/classdetail",
+  UPDATE_DETAILS :BASE_URL +"/class/updateclassdetail",
   
 }
 

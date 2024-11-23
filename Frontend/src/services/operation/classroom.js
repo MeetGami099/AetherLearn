@@ -122,3 +122,48 @@ export async function getPeoples(classroomID,setData, setLoading) {
   setLoading(false);
   toast.dismiss(toastId);
 }
+
+export async function removemember(classroomID,userId, setLoading,setData) {
+  const toastId = toast.loading("Loading...");
+  setLoading(true);
+  try {
+    const response = await apiConnector("GET", classendpoints.REMOVE_MEMBER+`?classroomID=${classroomID}&userID=${userId}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    //Delete Filter
+    setData((prevData) => prevData.filter((item) => item._id !== userId)); // Filter out user by ID
+  } catch (error) {
+    toast.error(error.message);
+  }
+  setLoading(false);
+  toast.dismiss(toastId);
+}
+
+export async function classDetails(classroomID,setLoading,setFormData,setClassCode) {
+  const toastId = toast.loading("Loading...");
+  setLoading(true);
+  try {
+    const response = await apiConnector("GET", classendpoints.CLASS_DETAILS+`?classroomID=${classroomID}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    //Delete Filter
+   console.log(response.data.classRoom.name);
+   setFormData({
+    className: response.data.classRoom.name,
+    subject: response.data.classRoom.subject,
+    description: response.data.classRoom.description
+    });
+    setClassCode(response.data.classRoom.classCode)
+  } catch (error) {
+    toast.error(error.message);
+  }
+  setLoading(false);
+  toast.dismiss(toastId);
+}
+

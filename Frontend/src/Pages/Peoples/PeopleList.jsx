@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../../Components/Spinner/Spinner';
 import PeopleCard from './PeopleCard'; // Correct the path to PeopleCard component
 import s from './PeoplesList.module.css';
-import { getPeoples } from '../../services/operation/classroom';
+import { getPeoples,removemember } from '../../services/operation/classroom';
 
 const PeopleList = () => {
   const { classroomID } = useParams();
@@ -17,7 +17,8 @@ const PeopleList = () => {
 
   // Delete handler for removing a person from the list
   const handleDelete = (userId) => {
-    setData((prevData) => prevData.filter((item) => item._id !== userId)); // Filter out user by ID
+    
+    removemember(classroomID,userId,setLoading,setData)
   };
 
   return (
