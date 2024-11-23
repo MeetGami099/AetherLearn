@@ -17,12 +17,15 @@ import ClassroomStudent from "./Pages/ClassroomStudent/ClassroomStudent";
 import Posts from "./Pages/Posts/Posts";
 import StreamDashboard from "./Pages/StreamDashboard/StreamDashboard";
 import Peoples from "./Pages/Peoples/Peoples";
+import Videos from "./Pages/videos/Videos";
+
 export default function App() {
   return (
     <div className="App">
       <Routes>
 
         <Route path="/login" element={<OpenRoute><Login /></OpenRoute>} />
+        <Route path="/" element={<OpenRoute><Login /></OpenRoute>} />
         <Route path="/signup" element={<OpenRoute><Signup /></OpenRoute>} />
         <Route path="/verify" element={<OpenRoute><VerifyOtp /></OpenRoute>} />
 
@@ -41,7 +44,7 @@ export default function App() {
 
             <Route path="/dashboard/joined/:classroomID" element={<ClassroomStudent />} > 
               <Route path="/dashboard/joined/:classroomID/posts" element={<Posts />} />
-              <Route path="/dashboard/joined/:classroomID/video" element={<>Coming Soon..</>} />
+              <Route path="/dashboard/joined/:classroomID/video" element={<Videos />} />
               <Route path="/dashboard/joined/:classroomID/video/:videoID" element={<Player />} />
               <Route path="/dashboard/joined/:classroomID/stream" element={<>Comign Soon..</>} />
             </Route>

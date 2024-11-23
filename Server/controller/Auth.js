@@ -44,17 +44,18 @@ const signUp = async (req, res) => {
     });
   }
 
-  // const findOtp = await otpModel
-  //   .find({ email })
-  //   .sort({ createdAt: -1 })
-  //   .limit(1);
+  const findOtp = await otpModel
+    .find({ email })
+    .sort({ createdAt: -1 })
+    .limit(1);
+    console.log(findOtp)
 
-  // if (findOtp[0].otp !== otp) {
-  //   return res.json({
-  //     success: false,
-  //     msg: "OTP Does not match",
-  //   });
-  // }
+  if (findOtp[0].otp !== otp) {
+    return res.json({
+      success: false,
+      msg: "OTP Does not match",
+    });
+  }
   const hasedPassword = await bcrypt.hash(password, 10);
 
   const registredUser = await userModel.create({

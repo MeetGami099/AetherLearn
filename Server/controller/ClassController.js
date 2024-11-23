@@ -277,9 +277,15 @@ const getAllClasses = async(req,res)=>{
 
 const getmembers = async (req,res)=>{
     try {
-        const {classCode} = req.query
+        const {classroomID} = req.query
         // console.log(classCode)
-        const getclassfromcode = await Class.findOne({classCode:classCode}) 
+        // const getclassfromcode = await Class.findOne({_id:classroomID}) ;
+
+        const getclassfromcode = await Class.findOne({ _id: classroomID })
+        .populate('facultys', 'firstName lastName _id') // Only include specific fields from User
+        .populate('students', 'firstName lastName _id');
+
+
         if(!getclassfromcode){
             return res.status(404).json({
                 message:"class not found",
@@ -306,36 +312,41 @@ const getmembers = async (req,res)=>{
 
 const removemember = async(req,res)=>{
     try {
-        const {classRoomId , studentId} = req.query
-        const classRoom = await Class.findById(classRoomId)
-        if(!classRoom){
+        const { classroomID, userID } = req.query;
+
+        // Ensure both classroomID and userID are provided
+        if (!classroomID || !userID) {
+            return res.status(400).json({
+                success: false,
+                message: "classroomID and userID are required"
+            });
+        }
+
+        // Find the class and remove the userID from the students array
+        const updatedClass = await Class.findByIdAndUpdate(
+            classroomID,
+            { $pull: { students: userID } }, // Remove the userID from students array
+            { new: true } // Return the updated document
+        );
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userID,
+            { $pull: { joinedclass: classroomID } }, // Remove the userID from students array
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedClass) {
             return res.status(404).json({
-                message:"class not found",
-                success:false
-                })
-                }
-                const student = await User.findById({_id:studentId})
-                if(!student){
-                    return res.status(404).json({
-                        message:"student not found",
-                        success:false
-                        })
-                        }
-                        const classRoomStudent = await Class.findOne({_id:classRoomId,students:studentId})
-                        if(!classRoomStudent){
-                            return res.status(404).json({
-                                message:"student not in class",
-                                success:false
-                            })
-                        }
-                        await Class.deleteOne({classRoom:classRoomId,student:studentId})
-                        return res.status(200).json({
-                            success:true,
-                            message:"student removed successfully",
-                            classRoomId:classRoomId,
-                            studentId:studentId
-                            })
-            
+                success: false,
+                message: "Class not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Student removed successfully",
+            class: updatedClass
+        });
 
     } catch (e) {
         console.log("error in removemember controller",e)
@@ -344,9 +355,9 @@ const removemember = async(req,res)=>{
 
 const classdetail = async(req,res) => {
     try {
-        const {classRoomId} = req.body
-        console.log(classRoomId)
-        const classRoom = await Class.findById(classRoomId).select("name description subject classCode")
+        const {classroomID} = req.query;
+   
+        const classRoom = await Class.findById(classroomID).select("name description subject classCode")
         if(!classRoom){
             return res.status(404).json({
                 message:"class not found",

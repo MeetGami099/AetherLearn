@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import s from './player.module.css'
-
+import { useParams } from 'react-router-dom';
 const VideoPlayer = ({ videoUrl }) => {
+    const { videoID } = useParams();
     const videoRef = useRef(null);
     const hlsRef = useRef(null);
     const [quality, setQuality] = useState('360'); // Default quality is 360p
@@ -20,7 +21,7 @@ const VideoPlayer = ({ videoUrl }) => {
     useEffect(() => {
         if (hlsRef.current && videoRef.current) {
             const currentTime = videoRef.current.currentTime;
-            const newUrl = `https://d34s66slw1xuws.cloudfront.net/Production/VideoId26/${quality}.m3u8`;
+            const newUrl = `https://d34s66slw1xuws.cloudfront.net/Production/${videoID}/${quality}.m3u8`;
             loadVideo(newUrl, currentTime);
         }
     }, [quality]);

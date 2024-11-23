@@ -21,7 +21,7 @@ export async function getSignedUrl( setLoading,classroomID,file) {
     setQueryParam('id', response.data.dbId);
     setQueryParam('stage', 2);
     setLoading(false);
-    // uploadFile(file,response.data.url)
+    uploadFile(file,response.data.url)
 
   } catch (error) {
     toast.error(error.message);
@@ -84,6 +84,27 @@ export async function getVideoMetadata(classroomID , setData,setLoading) {
     }
 
     setData(response.data.videos)
+
+  
+  } catch (error) {
+    toast.error(error.message);
+  }
+
+  setLoading(false);
+}
+
+export async function getSingleMetaData(videoID,setLoading,setVideoData) {
+  setLoading(true);
+
+  try {
+    
+    const response = await apiConnector("GET", postendpoints.GET_SINGLE_VIDEO+`?videoID=${videoID}`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    setVideoData(response.data.videos)
 
   
   } catch (error) {
