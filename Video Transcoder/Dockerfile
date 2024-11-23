@@ -18,8 +18,6 @@ COPY package-lock.json ./
 # Install dependencies
 RUN npm install
 
-
-
 # Copy the rest of the application code
 COPY index.js ./
 
@@ -27,8 +25,11 @@ COPY index.js ./
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Set the entry point
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+# Verify the file permissions (Optional Debugging Step)
+RUN ls -l /usr/local/bin/docker-entrypoint.sh
+
+# Set the entry point (ensure correct shell is used)
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/docker-entrypoint.sh"]
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["npm","start"]

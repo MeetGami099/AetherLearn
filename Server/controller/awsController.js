@@ -42,7 +42,7 @@ const generatePresignedUrl = async (req, res) => {
             userId:req.user._id,
             videoId:uuid,
             status:"processing",
-            url:`${process.env.AWS_CLOUDFRONT}/Production/${uuid}/360.m3u8`
+            url:`${process.env.AWS_CLOUDFRONT}/Production/${uuid}/`
         })
 
 
@@ -131,6 +131,7 @@ const generatePdfUrl = async (req, res) => {
 
 const statuschange = async (req,res)=>{
     try {
+        console.log("AWS requuest Arrived");
         const {videoId} = req.query
         console.log(videoId)
         const video1 = await videoModal.findOneAndUpdate({videoId:videoId},{status:'publish'})

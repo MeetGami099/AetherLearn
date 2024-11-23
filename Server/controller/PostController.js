@@ -258,4 +258,33 @@ const getvideo = async (req,res) => {
     }
 }
 
-module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos,deleteVideo , getpost , getvideo}
+const videometadata = async (req,res) => {
+    try{
+        console.log("reqArrived");
+        const {videoID} = req.query;
+        if(!videoID){
+            return res.status(404).json({
+                success:false,
+                message:"video Id not get it"
+            })
+        }
+        const video = await Video.find({videoId: videoID });
+        if(!video){
+            return res.status(404).json({
+                success:false,
+                message:"video not get it"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            data:video,
+        });
+    }catch(e){
+        console.log("Error in getvideo controller",e)
+
+    }
+}
+
+
+
+module.exports = { createPost , deletePost , readPosts , editPost ,updateVideoDetilas,getVideos,deleteVideo , getpost , getvideo,videometadata}
